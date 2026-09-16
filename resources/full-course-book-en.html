@@ -1,0 +1,2208 @@
+<title>Code Camp Lessons</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap">
+
+<style>
+:root {
+  --bg: #0b0e11;
+  --bg2: #12161c;
+  --bg3: #1a1f28;
+  --bg4: #222833;
+  --accent: #4e9af5;
+  --accent2: #f56565;
+  --accent3: #48bb78;
+  --accent4: #ed8936;
+  --html-color: #e06040;
+  --css-color: #5a9bd5;
+  --js-color: #e8c547;
+  --text: #e4e8ef;
+  --text2: #9aa3b3;
+  --text3: #5a6373;
+  --border: #2a3040;
+  --sidebar-w: 300px;
+  --code-bg: #0d1117;
+  --code-border: #21262d;
+  --inline-code-bg: #1a2030;
+}
+
+[data-theme="light"] {
+  --bg: #f5f6f8;
+  --bg2: #ebedf0;
+  --bg3: #e0e3e8;
+  --bg4: #d5d8df;
+  --accent: #2563eb;
+  --accent2: #dc2626;
+  --accent3: #16a34a;
+  --accent4: #d97706;
+  --html-color: #c43a20;
+  --css-color: #2563eb;
+  --js-color: #a88b1c;
+  --text: #1a1f28;
+  --text2: #4a5568;
+  --text3: #8a95a5;
+  --border: #d0d5dd;
+  --code-bg: #f0f2f5;
+  --code-border: #d0d5dd;
+  --inline-code-bg: #e8ebf0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f5f6f8;
+    --bg2: #ebedf0;
+    --bg3: #e0e3e8;
+    --bg4: #d5d8df;
+    --accent: #2563eb;
+    --accent2: #dc2626;
+    --accent3: #16a34a;
+    --accent4: #d97706;
+    --html-color: #c43a20;
+    --css-color: #2563eb;
+    --js-color: #a88b1c;
+    --text: #1a1f28;
+    --text2: #4a5568;
+    --text3: #8a95a5;
+    --border: #d0d5dd;
+    --code-bg: #f0f2f5;
+    --code-border: #d0d5dd;
+    --inline-code-bg: #e8ebf0;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.75;
+  margin: 0;
+  display: flex;
+  min-height: 100vh;
+}
+
+#progress {
+  position: fixed; top: 0; left: 0;
+  height: 3px; background: var(--accent);
+  z-index: 1000; transition: width 0.15s; width: 0;
+}
+
+.sidebar {
+  position: fixed; top: 0; left: 0;
+  width: var(--sidebar-w); height: 100vh;
+  background: var(--bg2); border-right: 1px solid var(--border);
+  overflow-y: auto; z-index: 100;
+  display: flex; flex-direction: column;
+  transition: transform 0.3s;
+}
+
+.sidebar-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-logo {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800; font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+.sidebar-logo span { color: var(--accent); }
+
+.sidebar-controls { display: flex; gap: 0.5rem; }
+
+#search {
+  flex: 1; background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text); padding: 0.4rem 0.6rem;
+  border-radius: 6px; font-size: 0.8rem;
+  font-family: inherit; outline: none;
+}
+#search:focus { border-color: var(--accent); }
+#search::placeholder { color: var(--text3); }
+
+.theme-btn {
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text2); width: 34px; height: 34px;
+  border-radius: 6px; cursor: pointer; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.sidebar-nav { flex: 1; overflow-y: auto; padding: 0.75rem 0; }
+
+.nav-group { margin-bottom: 0.25rem; }
+
+.nav-group-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text3); padding: 0.6rem 1.25rem 0.3rem;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+
+.nav-group-title .dot {
+  width: 6px; height: 6px; border-radius: 50%; display: inline-block;
+}
+.nav-group-title .dot.html { background: var(--html-color); }
+.nav-group-title .dot.css { background: var(--css-color); }
+.nav-group-title .dot.js { background: var(--js-color); }
+
+.nav-link {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.35rem 1.25rem; font-size: 0.82rem;
+  color: var(--text2); cursor: pointer;
+  text-decoration: none; transition: background 0.15s, color 0.15s;
+}
+.nav-link:hover { background: var(--bg3); color: var(--text); }
+.nav-link.active { color: var(--accent); background: var(--bg3); }
+
+.nav-link input[type="checkbox"] {
+  appearance: none; width: 14px; height: 14px;
+  border: 1.5px solid var(--border); border-radius: 3px;
+  cursor: pointer; flex-shrink: 0; position: relative;
+}
+.nav-link input[type="checkbox"]:checked {
+  background: var(--accent3); border-color: var(--accent3);
+}
+.nav-link input[type="checkbox"]:checked::after {
+  content: '✓'; color: #fff; font-size: 9px;
+  position: absolute; top: -1px; left: 2px;
+}
+
+.nav-time {
+  margin-left: auto; font-size: 0.7rem;
+  color: var(--text3); font-family: 'JetBrains Mono', monospace;
+}
+
+.hamburger {
+  display: none; position: fixed; top: 0.75rem; left: 0.75rem;
+  z-index: 200; background: var(--bg2);
+  border: 1px solid var(--border); color: var(--text);
+  width: 40px; height: 40px; border-radius: 8px;
+  cursor: pointer; font-size: 1.2rem;
+  align-items: center; justify-content: center;
+}
+
+.content {
+  margin-left: var(--sidebar-w); flex: 1;
+  max-width: 860px; padding: 2.5rem 3rem 5rem;
+}
+
+.chapter {
+  margin-bottom: 4rem; padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+}
+.chapter:last-child { border-bottom: none; }
+
+h1 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700; font-size: 1.75rem;
+  margin: 0 0 0.75rem; letter-spacing: -0.02em;
+}
+
+h1 .lesson-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem; font-weight: 600;
+  padding: 0.2rem 0.5rem; border-radius: 4px;
+  color: #fff; vertical-align: middle; margin-right: 0.4rem;
+}
+.badge-html { background: var(--html-color); }
+.badge-css { background: var(--css-color); }
+.badge-js { background: var(--js-color); }
+
+h2 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600; font-size: 1.25rem;
+  margin: 2.25rem 0 0.75rem; color: var(--text);
+}
+
+h3 { font-weight: 600; font-size: 1rem; margin: 1.5rem 0 0.5rem; }
+
+p { margin: 0.6rem 0; color: var(--text2); font-size: 0.95rem; }
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.84em; background: var(--inline-code-bg);
+  padding: 0.15em 0.4em; border-radius: 4px; color: var(--accent);
+}
+
+pre {
+  background: var(--code-bg); border: 1px solid var(--code-border);
+  border-radius: 8px; padding: 1rem 1.25rem;
+  overflow-x: auto; margin: 0.75rem 0; line-height: 1.55;
+}
+pre code {
+  background: none; padding: 0;
+  color: var(--text); font-size: 0.82rem;
+}
+
+.cm { color: var(--text3); }
+.kw { color: #c678dd; }
+.str { color: #98c379; }
+.tg { color: var(--html-color); }
+.at { color: var(--js-color); }
+.vl { color: #98c379; }
+.fn { color: #61afef; }
+.nm { color: #d19a66; }
+
+.callout {
+  border-radius: 8px; padding: 0.9rem 1.1rem;
+  margin: 1.25rem 0; font-size: 0.92rem;
+}
+.callout-title { font-weight: 600; margin-bottom: 0.3rem; font-size: 0.85rem; }
+
+.tip { background: color-mix(in srgb, var(--accent3) 10%, transparent); border-left: 3px solid var(--accent3); }
+.tip .callout-title { color: var(--accent3); }
+
+.gotcha { background: color-mix(in srgb, var(--accent2) 10%, transparent); border-left: 3px solid var(--accent2); }
+.gotcha .callout-title { color: var(--accent2); }
+
+.info { background: color-mix(in srgb, var(--accent) 10%, transparent); border-left: 3px solid var(--accent); }
+.info .callout-title { color: var(--accent); }
+
+.analogy { background: color-mix(in srgb, var(--accent4) 10%, transparent); border-left: 3px solid var(--accent4); }
+.analogy .callout-title { color: var(--accent4); }
+
+.structure-box {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem; line-height: 1.8;
+  overflow-x: auto; white-space: pre;
+}
+.structure-box .arrow { color: var(--accent); }
+
+.exercise {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 1.1rem 1.25rem; margin: 1.25rem 0;
+}
+.exercise-title {
+  font-family: 'Outfit', sans-serif; font-weight: 600;
+  font-size: 0.9rem; color: var(--accent4); margin-bottom: 0.5rem;
+}
+.exercise ol, .exercise ul {
+  margin: 0.3rem 0; padding-left: 1.2rem;
+  color: var(--text2); font-size: 0.9rem;
+}
+.exercise li { margin-bottom: 0.3rem; }
+
+.project {
+  background: var(--bg3); border: 1px solid var(--accent);
+  border-radius: 8px; padding: 1.1rem 1.25rem; margin: 1.5rem 0;
+}
+.project-title {
+  font-family: 'Outfit', sans-serif; font-weight: 600;
+  color: var(--accent); margin-bottom: 0.4rem;
+}
+.project p { font-size: 0.9rem; }
+
+table {
+  width: 100%; border-collapse: collapse;
+  margin: 0.75rem 0; font-size: 0.88rem;
+}
+th {
+  text-align: left; padding: 0.5rem 0.75rem;
+  background: var(--bg3); border: 1px solid var(--border);
+  font-weight: 600; color: var(--text);
+}
+td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border); color: var(--text2);
+}
+
+.divider {
+  display: flex; align-items: center; gap: 1rem;
+  margin: 3rem 0 1.5rem; color: var(--text3);
+  font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.1em; font-family: 'Outfit', sans-serif;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .hamburger { display: flex; }
+  .content { margin-left: 0; padding: 3rem 1.25rem 4rem; }
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 50; }
+  .overlay.show { display: block; }
+}
+</style>
+
+<div id="progress"></div>
+<button class="hamburger" id="hamburger">☰</button>
+<div class="overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">👨‍💻 <span>Code</span> Camp</div>
+    <div class="sidebar-controls">
+      <input type="text" id="search" placeholder="Search...">
+      <button class="theme-btn" id="themeToggle" title="Toggle theme">◑</button>
+    </div>
+  </div>
+  <nav class="sidebar-nav" id="sidebarNav"></nav>
+</aside>
+
+<main class="content" id="content">
+
+<!-- ==================== LESSON 1 ==================== -->
+<section class="chapter" id="lesson-1">
+<h1><span class="lesson-badge badge-html">01</span> What is a Website?</h1>
+
+<div class="analogy">
+  <div class="callout-title">Think of it like building a house</div>
+  <strong>HTML</strong> is the bricks and walls — it gives the house its shape. <strong>CSS</strong> is the paint and decoration — it makes the house look pretty. <strong>JavaScript</strong> is the electricity and plumbing — it makes things actually work (lights turn on, water flows).
+</div>
+
+<h2>What is a browser?</h2>
+<p>A browser is a program that reads HTML files and shows you a nice-looking page. Chrome, Safari, Firefox — those are all browsers. You write HTML, the browser reads it, and boom — a webpage appears!</p>
+
+<h2>Your very first webpage</h2>
+<p>Open VS Code. Create a new file called <code>index.html</code> and type this:</p>
+
+<pre><code><span class="tg">&lt;!DOCTYPE html&gt;</span>
+<span class="tg">&lt;html&gt;</span>
+  <span class="tg">&lt;head&gt;</span>
+    <span class="tg">&lt;title&gt;</span>My First Page<span class="tg">&lt;/title&gt;</span>
+  <span class="tg">&lt;/head&gt;</span>
+  <span class="tg">&lt;body&gt;</span>
+    <span class="tg">&lt;h1&gt;</span>Hello World!<span class="tg">&lt;/h1&gt;</span>
+    <span class="tg">&lt;p&gt;</span>This is my very first webpage.<span class="tg">&lt;/p&gt;</span>
+  <span class="tg">&lt;/body&gt;</span>
+<span class="tg">&lt;/html&gt;</span></code></pre>
+
+<p>Now right-click the file and choose "Open with Live Server" (or just double-click to open in Chrome). You should see your text on screen!</p>
+
+<h2>What are tags?</h2>
+<p>Everything in HTML is wrapped in <strong>tags</strong>. A tag looks like <code>&lt;something&gt;</code>. Think of tags like containers — they wrap around your content and tell the browser what kind of content it is.</p>
+
+<table>
+  <tr><th>Tag</th><th>What it does</th><th>Think of it as...</th></tr>
+  <tr><td><code>&lt;html&gt;</code></td><td>Wraps the entire page</td><td>The whole house</td></tr>
+  <tr><td><code>&lt;head&gt;</code></td><td>Info about the page (invisible)</td><td>The house blueprint</td></tr>
+  <tr><td><code>&lt;title&gt;</code></td><td>The name in the browser tab</td><td>The house address sign</td></tr>
+  <tr><td><code>&lt;body&gt;</code></td><td>Everything you can see</td><td>The rooms inside</td></tr>
+  <tr><td><code>&lt;h1&gt;</code></td><td>Big heading</td><td>A chapter title in a book</td></tr>
+  <tr><td><code>&lt;p&gt;</code></td><td>Paragraph of text</td><td>A regular sentence</td></tr>
+</table>
+
+<div class="callout tip">
+  <div class="callout-title">The Golden Rule</div>
+  Every tag that opens must close! <code>&lt;h1&gt;</code> needs <code>&lt;/h1&gt;</code>. See the slash <code>/</code>? That means "close." It's like opening and closing a box — you can't leave it open.
+</div>
+
+<h2>Headings — h1 through h6</h2>
+<p>There are 6 sizes of headings. <code>h1</code> is the biggest (like a book title), <code>h6</code> is the smallest.</p>
+
+<pre><code><span class="tg">&lt;h1&gt;</span>This is h1 — the biggest<span class="tg">&lt;/h1&gt;</span>
+<span class="tg">&lt;h2&gt;</span>This is h2 — a bit smaller<span class="tg">&lt;/h2&gt;</span>
+<span class="tg">&lt;h3&gt;</span>This is h3<span class="tg">&lt;/h3&gt;</span>
+<span class="tg">&lt;h4&gt;</span>This is h4<span class="tg">&lt;/h4&gt;</span>
+<span class="tg">&lt;h5&gt;</span>This is h5<span class="tg">&lt;/h5&gt;</span>
+<span class="tg">&lt;h6&gt;</span>This is h6 — the smallest heading<span class="tg">&lt;/h6&gt;</span></code></pre>
+
+<h2>Paragraphs and line breaks</h2>
+<pre><code><span class="tg">&lt;p&gt;</span>This is the first paragraph. It has its own space.<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;p&gt;</span>This is the second paragraph. There's a gap between them.<span class="tg">&lt;/p&gt;</span>
+
+<span class="cm">&lt;!-- br forces a new line WITHOUT starting a new paragraph --&gt;</span>
+<span class="tg">&lt;p&gt;</span>Line one<span class="tg">&lt;br&gt;</span>Line two (same paragraph, just a new line)<span class="tg">&lt;/p&gt;</span></code></pre>
+
+<div class="callout info">
+  <div class="callout-title">Self-closing tags</div>
+  <code>&lt;br&gt;</code> doesn't need a closing tag — it's "self-closing." It doesn't wrap around anything, it just says "go to the next line here."
+</div>
+
+<h2>Comments — notes to yourself</h2>
+<pre><code><span class="cm">&lt;!-- This is a comment. The browser ignores it completely. --&gt;</span>
+<span class="cm">&lt;!-- Use comments to leave notes for yourself --&gt;</span>
+<span class="tg">&lt;h1&gt;</span>This shows up<span class="tg">&lt;/h1&gt;</span>
+<span class="cm">&lt;!-- &lt;p&gt;This is hidden because it's inside a comment&lt;/p&gt; --&gt;</span></code></pre>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn!</div>
+  <ol>
+    <li>Create a new file called <code>about-me.html</code></li>
+    <li>Add the basic structure: <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code></li>
+    <li>Put your name in an <code>&lt;h1&gt;</code></li>
+    <li>Write your age in a <code>&lt;p&gt;</code></li>
+    <li>Write your favorite food in another <code>&lt;p&gt;</code></li>
+    <li>Add an <code>&lt;h2&gt;</code> that says "My Hobbies"</li>
+    <li>Add 3 paragraphs, each with one hobby</li>
+    <li>Open it in the browser and see your page!</li>
+  </ol>
+</div>
+
+<div class="project">
+  <div class="project-title">Mini Project: About Me Page</div>
+  <p>Make a complete "About Me" page. Include your name, age, school, hobbies, and favorite things. Use different heading sizes for different sections. Open it in Chrome and show it to your teacher!</p>
+</div>
+</section>
+
+<!-- ==================== LESSON 2 ==================== -->
+<section class="chapter" id="lesson-2">
+<h1><span class="lesson-badge badge-html">02</span> Links, Images & Lists</h1>
+
+<p>Time to make your pages more interesting! Today you'll learn how to add pictures, clickable links, and lists.</p>
+
+<h2>Lists</h2>
+<p>There are two types of lists:</p>
+
+<h3>Bullet list (unordered)</h3>
+<pre><code><span class="tg">&lt;ul&gt;</span>
+  <span class="tg">&lt;li&gt;</span>Apples<span class="tg">&lt;/li&gt;</span>
+  <span class="tg">&lt;li&gt;</span>Bananas<span class="tg">&lt;/li&gt;</span>
+  <span class="tg">&lt;li&gt;</span>Oranges<span class="tg">&lt;/li&gt;</span>
+<span class="tg">&lt;/ul&gt;</span></code></pre>
+<p>This shows: • Apples • Bananas • Oranges</p>
+
+<h3>Numbered list (ordered)</h3>
+<pre><code><span class="tg">&lt;ol&gt;</span>
+  <span class="tg">&lt;li&gt;</span>Wake up<span class="tg">&lt;/li&gt;</span>
+  <span class="tg">&lt;li&gt;</span>Eat breakfast<span class="tg">&lt;/li&gt;</span>
+  <span class="tg">&lt;li&gt;</span>Go to school<span class="tg">&lt;/li&gt;</span>
+<span class="tg">&lt;/ol&gt;</span></code></pre>
+<p>This shows: 1. Wake up 2. Eat breakfast 3. Go to school</p>
+
+<div class="analogy">
+  <div class="callout-title">Easy way to remember</div>
+  <code>ul</code> = <strong>U</strong>nordered <strong>L</strong>ist (bullets). <code>ol</code> = <strong>O</strong>rdered <strong>L</strong>ist (numbers). <code>li</code> = <strong>L</strong>ist <strong>I</strong>tem (each thing in the list).
+</div>
+
+<h2>Links</h2>
+<p>Links let you click and go to another page. The <code>&lt;a&gt;</code> tag creates a link.</p>
+
+<pre><code><span class="cm">&lt;!-- Link to another website --&gt;</span>
+<span class="tg">&lt;a</span> <span class="at">href</span>=<span class="vl">"https://google.com"</span><span class="tg">&gt;</span>Go to Google<span class="tg">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- Open in a new tab --&gt;</span>
+<span class="tg">&lt;a</span> <span class="at">href</span>=<span class="vl">"https://youtube.com"</span> <span class="at">target</span>=<span class="vl">"_blank"</span><span class="tg">&gt;</span>YouTube<span class="tg">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- Link to your own page --&gt;</span>
+<span class="tg">&lt;a</span> <span class="at">href</span>=<span class="vl">"about-me.html"</span><span class="tg">&gt;</span>About Me<span class="tg">&lt;/a&gt;</span></code></pre>
+
+<div class="callout info">
+  <div class="callout-title">What is href?</div>
+  <code>href</code> stands for <strong>H</strong>ypertext <strong>REF</strong>erence. It tells the browser where the link goes. Things inside the opening tag like <code>href="..."</code> are called <strong>attributes</strong> — they give extra information to the tag.
+</div>
+
+<h2>Images</h2>
+<pre><code><span class="cm">&lt;!-- Image from the internet --&gt;</span>
+<span class="tg">&lt;img</span> <span class="at">src</span>=<span class="vl">"https://picsum.photos/300/200"</span> <span class="at">alt</span>=<span class="vl">"A random photo"</span><span class="tg">&gt;</span>
+
+<span class="cm">&lt;!-- Image from your computer (same folder) --&gt;</span>
+<span class="tg">&lt;img</span> <span class="at">src</span>=<span class="vl">"cat.jpg"</span> <span class="at">alt</span>=<span class="vl">"My cat"</span><span class="tg">&gt;</span>
+
+<span class="cm">&lt;!-- Control the size --&gt;</span>
+<span class="tg">&lt;img</span> <span class="at">src</span>=<span class="vl">"cat.jpg"</span> <span class="at">alt</span>=<span class="vl">"My cat"</span> <span class="at">width</span>=<span class="vl">"400"</span><span class="tg">&gt;</span></code></pre>
+
+<div class="callout gotcha">
+  <div class="callout-title">Never skip alt!</div>
+  The <code>alt</code> attribute describes the image in words. If the image doesn't load, this text shows instead. It's also how blind people using screen readers know what the picture is. Always include it!
+</div>
+
+<h2>Bold and italic text</h2>
+<pre><code><span class="tg">&lt;p&gt;</span>This word is <span class="tg">&lt;strong&gt;</span>bold<span class="tg">&lt;/strong&gt;</span>.<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;p&gt;</span>This word is <span class="tg">&lt;em&gt;</span>italic<span class="tg">&lt;/em&gt;</span>.<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;p&gt;</span>This is <span class="tg">&lt;strong&gt;&lt;em&gt;</span>bold AND italic<span class="tg">&lt;/em&gt;&lt;/strong&gt;</span>.<span class="tg">&lt;/p&gt;</span></code></pre>
+
+<div class="analogy">
+  <div class="callout-title">Remember</div>
+  <code>&lt;strong&gt;</code> = <strong>strong</strong> = bold. <code>&lt;em&gt;</code> = <em>emphasis</em> = italic.
+</div>
+
+<h2>Putting it all together</h2>
+<p>You can combine everything! Here's a link that's also bold, inside a list:</p>
+<pre><code><span class="tg">&lt;ul&gt;</span>
+  <span class="tg">&lt;li&gt;</span><span class="tg">&lt;strong&gt;</span><span class="tg">&lt;a</span> <span class="at">href</span>=<span class="vl">"https://google.com"</span><span class="tg">&gt;</span>Google<span class="tg">&lt;/a&gt;</span><span class="tg">&lt;/strong&gt;</span> — search engine<span class="tg">&lt;/li&gt;</span>
+  <span class="tg">&lt;li&gt;</span><span class="tg">&lt;strong&gt;</span><span class="tg">&lt;a</span> <span class="at">href</span>=<span class="vl">"https://youtube.com"</span><span class="tg">&gt;</span>YouTube<span class="tg">&lt;/a&gt;</span><span class="tg">&lt;/strong&gt;</span> — videos<span class="tg">&lt;/li&gt;</span>
+<span class="tg">&lt;/ul&gt;</span></code></pre>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn!</div>
+  <ol>
+    <li>Create <code>favorites.html</code></li>
+    <li>Add an <code>h1</code>: "My Favorite Things"</li>
+    <li>Make an <strong>ordered list</strong> of your top 5 movies or games</li>
+    <li>Make each title <strong>bold</strong></li>
+    <li>Add a link to one movie/game's website</li>
+    <li>Find a picture online, copy its URL, and add it with <code>&lt;img&gt;</code></li>
+    <li>Make an <strong>unordered list</strong> of your favorite foods</li>
+  </ol>
+</div>
+
+<div class="project">
+  <div class="project-title">Mini Project: My Favorite Books</div>
+  <p>Create a page about your favorite books (or movies, or games). Each one should have: an image, the title in bold, a short description, and a link. Have at least 3 items.</p>
+</div>
+</section>
+
+<!-- ==================== LESSON 3 ==================== -->
+<section class="chapter" id="lesson-3">
+<h1><span class="lesson-badge badge-html">03</span> Structure, Tables & Forms</h1>
+
+<h2>div and span — invisible containers</h2>
+<p><code>&lt;div&gt;</code> is like an invisible box. It groups things together. You can't see it on the page, but it helps you organize your code (and later, style it with CSS).</p>
+
+<pre><code><span class="tg">&lt;div&gt;</span>
+  <span class="tg">&lt;h2&gt;</span>Section One<span class="tg">&lt;/h2&gt;</span>
+  <span class="tg">&lt;p&gt;</span>This paragraph belongs to section one.<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;/div&gt;</span>
+
+<span class="tg">&lt;div&gt;</span>
+  <span class="tg">&lt;h2&gt;</span>Section Two<span class="tg">&lt;/h2&gt;</span>
+  <span class="tg">&lt;p&gt;</span>This paragraph belongs to section two.<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;/div&gt;</span></code></pre>
+
+<p><code>&lt;span&gt;</code> is similar but for <strong>inline</strong> text — it doesn't start a new line:</p>
+<pre><code><span class="tg">&lt;p&gt;</span>My favorite color is <span class="tg">&lt;span</span> <span class="at">style</span>=<span class="vl">"color: blue"</span><span class="tg">&gt;</span>blue<span class="tg">&lt;/span&gt;</span>.<span class="tg">&lt;/p&gt;</span></code></pre>
+
+<div class="analogy">
+  <div class="callout-title">Think of it this way</div>
+  <code>&lt;div&gt;</code> = a room in a house. Each room holds different stuff. <code>&lt;span&gt;</code> = highlighting one word with a marker pen.
+</div>
+
+<h2>Tables</h2>
+<p>Tables are for showing data in rows and columns — like a spreadsheet.</p>
+
+<pre><code><span class="tg">&lt;table&gt;</span>
+  <span class="tg">&lt;tr&gt;</span>
+    <span class="tg">&lt;th&gt;</span>Name<span class="tg">&lt;/th&gt;</span>
+    <span class="tg">&lt;th&gt;</span>Age<span class="tg">&lt;/th&gt;</span>
+    <span class="tg">&lt;th&gt;</span>Favorite Color<span class="tg">&lt;/th&gt;</span>
+  <span class="tg">&lt;/tr&gt;</span>
+  <span class="tg">&lt;tr&gt;</span>
+    <span class="tg">&lt;td&gt;</span>Ali<span class="tg">&lt;/td&gt;</span>
+    <span class="tg">&lt;td&gt;</span>13<span class="tg">&lt;/td&gt;</span>
+    <span class="tg">&lt;td&gt;</span>Blue<span class="tg">&lt;/td&gt;</span>
+  <span class="tg">&lt;/tr&gt;</span>
+  <span class="tg">&lt;tr&gt;</span>
+    <span class="tg">&lt;td&gt;</span>Sara<span class="tg">&lt;/td&gt;</span>
+    <span class="tg">&lt;td&gt;</span>12<span class="tg">&lt;/td&gt;</span>
+    <span class="tg">&lt;td&gt;</span>Purple<span class="tg">&lt;/td&gt;</span>
+  <span class="tg">&lt;/tr&gt;</span>
+<span class="tg">&lt;/table&gt;</span></code></pre>
+
+<table>
+  <tr><th>Tag</th><th>Stands for</th><th>What it does</th></tr>
+  <tr><td><code>&lt;table&gt;</code></td><td>Table</td><td>Starts the table</td></tr>
+  <tr><td><code>&lt;tr&gt;</code></td><td>Table Row</td><td>One horizontal row</td></tr>
+  <tr><td><code>&lt;th&gt;</code></td><td>Table Header</td><td>Header cell (bold, centered)</td></tr>
+  <tr><td><code>&lt;td&gt;</code></td><td>Table Data</td><td>Regular cell</td></tr>
+</table>
+
+<h2>Forms — getting input from users</h2>
+<p>Forms let users type things in — like a login page or a contact form.</p>
+
+<pre><code><span class="tg">&lt;form&gt;</span>
+  <span class="tg">&lt;label&gt;</span>Your Name:<span class="tg">&lt;/label&gt;</span>
+  <span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"text"</span> <span class="at">placeholder</span>=<span class="vl">"Type your name"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;br&gt;&lt;br&gt;</span>
+
+  <span class="tg">&lt;label&gt;</span>Email:<span class="tg">&lt;/label&gt;</span>
+  <span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"email"</span> <span class="at">placeholder</span>=<span class="vl">"your@email.com"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;br&gt;&lt;br&gt;</span>
+
+  <span class="tg">&lt;label&gt;</span>Password:<span class="tg">&lt;/label&gt;</span>
+  <span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"password"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;br&gt;&lt;br&gt;</span>
+
+  <span class="tg">&lt;label&gt;</span>Your Message:<span class="tg">&lt;/label&gt;</span>
+  <span class="tg">&lt;textarea</span> <span class="at">rows</span>=<span class="vl">"4"</span><span class="tg">&gt;&lt;/textarea&gt;</span>
+  <span class="tg">&lt;br&gt;&lt;br&gt;</span>
+
+  <span class="tg">&lt;label&gt;</span>Your Age:<span class="tg">&lt;/label&gt;</span>
+  <span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"number"</span> <span class="at">min</span>=<span class="vl">"5"</span> <span class="at">max</span>=<span class="vl">"100"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;br&gt;&lt;br&gt;</span>
+
+  <span class="tg">&lt;label&gt;</span>Favorite Subject:<span class="tg">&lt;/label&gt;</span>
+  <span class="tg">&lt;select&gt;</span>
+    <span class="tg">&lt;option&gt;</span>Math<span class="tg">&lt;/option&gt;</span>
+    <span class="tg">&lt;option&gt;</span>Science<span class="tg">&lt;/option&gt;</span>
+    <span class="tg">&lt;option&gt;</span>English<span class="tg">&lt;/option&gt;</span>
+    <span class="tg">&lt;option&gt;</span>Art<span class="tg">&lt;/option&gt;</span>
+  <span class="tg">&lt;/select&gt;</span>
+  <span class="tg">&lt;br&gt;&lt;br&gt;</span>
+
+  <span class="tg">&lt;button</span> <span class="at">type</span>=<span class="vl">"submit"</span><span class="tg">&gt;</span>Send!<span class="tg">&lt;/button&gt;</span>
+<span class="tg">&lt;/form&gt;</span></code></pre>
+
+<div class="callout tip">
+  <div class="callout-title">Input types to know</div>
+  <code>text</code> — regular text. <code>email</code> — email (checks for @). <code>password</code> — hides what you type. <code>number</code> — only numbers. <code>checkbox</code> — a tick box. <code>color</code> — color picker!
+</div>
+
+<h2>Page structure tags</h2>
+<p>These special tags tell the browser what each part of your page IS:</p>
+
+<div class="structure-box"><span class="tg">&lt;header&gt;</span>  <span class="arrow">→</span>  Top of the page (logo, navigation)
+<span class="tg">&lt;nav&gt;</span>     <span class="arrow">→</span>  Navigation links (menu)
+<span class="tg">&lt;main&gt;</span>    <span class="arrow">→</span>  The main content
+<span class="tg">&lt;section&gt;</span> <span class="arrow">→</span>  A section of content
+<span class="tg">&lt;footer&gt;</span>  <span class="arrow">→</span>  Bottom of the page (copyright)</div>
+
+<pre><code><span class="tg">&lt;header&gt;</span>
+  <span class="tg">&lt;h1&gt;</span>My School<span class="tg">&lt;/h1&gt;</span>
+  <span class="tg">&lt;nav&gt;</span>
+    <span class="tg">&lt;a</span> <span class="at">href</span>=<span class="vl">"#about"</span><span class="tg">&gt;</span>About Us<span class="tg">&lt;/a&gt;</span> |
+    <span class="tg">&lt;a</span> <span class="at">href</span>=<span class="vl">"#schedule"</span><span class="tg">&gt;</span>Schedule<span class="tg">&lt;/a&gt;</span> |
+    <span class="tg">&lt;a</span> <span class="at">href</span>=<span class="vl">"#contact"</span><span class="tg">&gt;</span>Contact<span class="tg">&lt;/a&gt;</span>
+  <span class="tg">&lt;/nav&gt;</span>
+<span class="tg">&lt;/header&gt;</span>
+
+<span class="tg">&lt;main&gt;</span>
+  <span class="tg">&lt;section</span> <span class="at">id</span>=<span class="vl">"about"</span><span class="tg">&gt;</span>
+    <span class="tg">&lt;h2&gt;</span>About Us<span class="tg">&lt;/h2&gt;</span>
+    <span class="tg">&lt;p&gt;</span>We are a great school!<span class="tg">&lt;/p&gt;</span>
+  <span class="tg">&lt;/section&gt;</span>
+<span class="tg">&lt;/main&gt;</span>
+
+<span class="tg">&lt;footer&gt;</span>
+  <span class="tg">&lt;p&gt;</span>&amp;copy; 2026 My School<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;/footer&gt;</span></code></pre>
+
+<div class="callout info">
+  <div class="callout-title">What does id do?</div>
+  <code>id="about"</code> gives the section a unique name. When someone clicks <code>&lt;a href="#about"&gt;</code>, the page scrolls down to that section. The <code>#</code> means "look on this same page."
+</div>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn!</div>
+  <ol>
+    <li>Create <code>school.html</code></li>
+    <li>Add a <code>&lt;header&gt;</code> with your school name and 3 nav links</li>
+    <li>Add a <code>&lt;main&gt;</code> with at least 2 sections</li>
+    <li>Create a class schedule using a <code>&lt;table&gt;</code> (Monday through Friday, 5 subjects)</li>
+    <li>Add a contact <code>&lt;form&gt;</code> with: name, email, message, and a send button</li>
+    <li>Add a <code>&lt;footer&gt;</code></li>
+  </ol>
+</div>
+
+<div class="project">
+  <div class="project-title">Week Project: My School Website</div>
+  <p>Build a complete school page: header with nav, "About" section, schedule table, an image, a contact form, and a footer. This is your HTML masterpiece — use everything you learned this week!</p>
+</div>
+</section>
+
+<div class="divider">Phase 2 — CSS</div>
+
+<!-- ==================== LESSON 4 ==================== -->
+<section class="chapter" id="lesson-4">
+<h1><span class="lesson-badge badge-css">04</span> Welcome to CSS</h1>
+
+<div class="analogy">
+  <div class="callout-title">HTML vs CSS</div>
+  Right now your pages work, but they look plain and boring — like a house with no paint, no curtains, no decorations. <strong>CSS</strong> (Cascading Style Sheets) changes how things LOOK — colors, sizes, spacing, fonts, everything visual.
+</div>
+
+<h2>Three ways to write CSS</h2>
+
+<h3>1. Inline — directly on the tag (not recommended)</h3>
+<pre><code><span class="tg">&lt;h1</span> <span class="at">style</span>=<span class="vl">"color: blue; font-size: 40px;"</span><span class="tg">&gt;</span>Hello!<span class="tg">&lt;/h1&gt;</span></code></pre>
+
+<h3>2. Style tag — inside &lt;head&gt; (OK for practice)</h3>
+<pre><code><span class="tg">&lt;head&gt;</span>
+  <span class="tg">&lt;style&gt;</span>
+    <span class="fn">h1</span> {
+      <span class="at">color</span>: blue;
+      <span class="at">font-size</span>: <span class="nm">40px</span>;
+    }
+  <span class="tg">&lt;/style&gt;</span>
+<span class="tg">&lt;/head&gt;</span></code></pre>
+
+<h3>3. Separate file — the best way!</h3>
+<pre><code><span class="cm">&lt;!-- In your HTML file, add this in &lt;head&gt; --&gt;</span>
+<span class="tg">&lt;link</span> <span class="at">rel</span>=<span class="vl">"stylesheet"</span> <span class="at">href</span>=<span class="vl">"style.css"</span><span class="tg">&gt;</span></code></pre>
+
+<pre><code><span class="cm">/* style.css — a separate file */</span>
+<span class="fn">h1</span> {
+  <span class="at">color</span>: blue;
+  <span class="at">font-size</span>: <span class="nm">40px</span>;
+}</code></pre>
+
+<div class="callout tip">
+  <div class="callout-title">Always use a separate file</div>
+  Create a <code>style.css</code> file and link it. This keeps your code organized — HTML for structure, CSS for looks.
+</div>
+
+<h2>How CSS works</h2>
+<p>CSS has a simple pattern: <strong>select something</strong>, then <strong>change how it looks</strong>.</p>
+
+<div class="structure-box"><span class="fn">selector</span> {
+  <span class="at">property</span>: <span class="vl">value</span>;
+  <span class="at">property</span>: <span class="vl">value</span>;
+}</div>
+
+<h2>Selectors — WHAT do you want to style?</h2>
+
+<pre><code><span class="cm">/* TAG selector — styles ALL h1 elements */</span>
+<span class="fn">h1</span> {
+  <span class="at">color</span>: red;
+}
+
+<span class="cm">/* CLASS selector — styles elements with this class */</span>
+<span class="fn">.important</span> {
+  <span class="at">color</span>: orange;
+  <span class="at">font-weight</span>: bold;
+}
+
+<span class="cm">/* ID selector — styles ONE specific element */</span>
+<span class="fn">#main-title</span> {
+  <span class="at">font-size</span>: <span class="nm">50px</span>;
+}</code></pre>
+
+<p>In HTML:</p>
+<pre><code><span class="tg">&lt;h1</span> <span class="at">id</span>=<span class="vl">"main-title"</span><span class="tg">&gt;</span>Big Title<span class="tg">&lt;/h1&gt;</span>
+<span class="tg">&lt;p</span> <span class="at">class</span>=<span class="vl">"important"</span><span class="tg">&gt;</span>This is important.<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;p&gt;</span>This is normal.<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;p</span> <span class="at">class</span>=<span class="vl">"important"</span><span class="tg">&gt;</span>This is also important.<span class="tg">&lt;/p&gt;</span></code></pre>
+
+<div class="callout info">
+  <div class="callout-title">class vs id</div>
+  <strong>class</strong> = can be used on MANY elements. Like a team shirt — many people wear it. Starts with a dot: <code>.important</code><br>
+  <strong>id</strong> = used on just ONE element. Like your student ID — only you have it. Starts with a hash: <code>#main-title</code>
+</div>
+
+<h2>Colors</h2>
+<table>
+  <tr><th>Method</th><th>Example</th><th>Notes</th></tr>
+  <tr><td>Name</td><td><code>red</code>, <code>blue</code>, <code>tomato</code>, <code>gold</code></td><td>Easy to remember, limited options</td></tr>
+  <tr><td>Hex code</td><td><code>#ff0000</code>, <code>#333</code></td><td>6 characters (or 3 shorthand)</td></tr>
+  <tr><td>RGB</td><td><code>rgb(255, 0, 0)</code></td><td>Red, Green, Blue values (0-255)</td></tr>
+</table>
+
+<h2>Common properties</h2>
+<pre><code><span class="fn">body</span> {
+  <span class="at">color</span>: <span class="vl">#333</span>;                <span class="cm">/* Text color */</span>
+  <span class="at">background-color</span>: <span class="vl">#f5f5f5</span>;  <span class="cm">/* Background color */</span>
+  <span class="at">font-family</span>: <span class="vl">Arial, sans-serif</span>;
+  <span class="at">font-size</span>: <span class="nm">16px</span>;
+}
+
+<span class="fn">h1</span> {
+  <span class="at">color</span>: <span class="vl">#e06040</span>;
+  <span class="at">font-size</span>: <span class="nm">36px</span>;
+  <span class="at">text-align</span>: <span class="vl">center</span>;        <span class="cm">/* center, left, right */</span>
+  <span class="at">text-decoration</span>: <span class="vl">underline</span>; <span class="cm">/* underline text */</span>
+}
+
+<span class="fn">a</span> {
+  <span class="at">color</span>: <span class="vl">#4e9af5</span>;
+  <span class="at">text-decoration</span>: <span class="vl">none</span>;     <span class="cm">/* Remove the underline */</span>
+}</code></pre>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn!</div>
+  <ol>
+    <li>Create <code>style.css</code> and link it to your HTML</li>
+    <li>Change the <code>body</code> background color to something light</li>
+    <li>Change all <code>h1</code> text to your favorite color</li>
+    <li>Center all <code>h1</code> text</li>
+    <li>Create a class called <code>.highlight</code> — give it a yellow background and bold text</li>
+    <li>Add that class to 2 or 3 paragraphs in your HTML</li>
+    <li>Change the font of the whole page to <code>Arial</code></li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 5 ==================== -->
+<section class="chapter" id="lesson-5">
+<h1><span class="lesson-badge badge-css">05</span> The Box Model</h1>
+
+<p>Here's a secret: every single element on a webpage is a <strong>box</strong>. Even text. Even images. Everything is a rectangle. And every box has 4 layers:</p>
+
+<div class="structure-box">┌───────────────── MARGIN (space outside the box) ──────────────┐
+│  ┌───────────── BORDER (the box edge) ─────────────────┐      │
+│  │  ┌───────── PADDING (space inside the box) ──────┐  │      │
+│  │  │                                               │  │      │
+│  │  │            CONTENT (your text/image)           │  │      │
+│  │  │                                               │  │      │
+│  │  └───────────────────────────────────────────────┘  │      │
+│  └─────────────────────────────────────────────────────┘      │
+└───────────────────────────────────────────────────────────────┘</div>
+
+<div class="analogy">
+  <div class="callout-title">Picture frame analogy</div>
+  <strong>Content</strong> = the photo. <strong>Padding</strong> = the white space between the photo and the frame. <strong>Border</strong> = the frame itself. <strong>Margin</strong> = the space between the frame and the wall (or the next frame).
+</div>
+
+<h2>Padding — space inside</h2>
+<pre><code><span class="fn">.card</span> {
+  <span class="at">padding</span>: <span class="nm">20px</span>;               <span class="cm">/* All sides: 20px */</span>
+  <span class="at">padding</span>: <span class="nm">10px 20px</span>;          <span class="cm">/* Top/bottom: 10, Left/right: 20 */</span>
+  <span class="at">padding-top</span>: <span class="nm">10px</span>;           <span class="cm">/* Just the top */</span>
+  <span class="at">padding-left</span>: <span class="nm">30px</span>;          <span class="cm">/* Just the left */</span>
+}</code></pre>
+
+<h2>Margin — space outside</h2>
+<pre><code><span class="fn">.card</span> {
+  <span class="at">margin</span>: <span class="nm">20px</span>;            <span class="cm">/* Space around the box */</span>
+  <span class="at">margin-bottom</span>: <span class="nm">30px</span>;    <span class="cm">/* Just bottom space */</span>
+  <span class="at">margin</span>: <span class="nm">0 auto</span>;          <span class="cm">/* CENTER the box on the page! */</span>
+}</code></pre>
+
+<div class="callout tip">
+  <div class="callout-title">Centering trick</div>
+  <code>margin: 0 auto;</code> centers a box horizontally. This is one of the most useful CSS tricks — memorize it! (The box needs a <code>width</code> for this to work.)
+</div>
+
+<h2>Border</h2>
+<pre><code><span class="fn">.card</span> {
+  <span class="at">border</span>: <span class="nm">2px</span> <span class="vl">solid</span> <span class="vl">#333</span>;   <span class="cm">/* thickness, style, color */</span>
+  <span class="at">border</span>: <span class="nm">1px</span> <span class="vl">dashed</span> <span class="vl">red</span>;   <span class="cm">/* dashed line */</span>
+  <span class="at">border-radius</span>: <span class="nm">8px</span>;        <span class="cm">/* Round the corners! */</span>
+  <span class="at">border-radius</span>: <span class="nm">50%</span>;        <span class="cm">/* Perfect circle */</span>
+}</code></pre>
+
+<h2>Width and Height</h2>
+<pre><code><span class="fn">.card</span> {
+  <span class="at">width</span>: <span class="nm">300px</span>;
+  <span class="at">max-width</span>: <span class="nm">100%</span>;   <span class="cm">/* Never wider than the screen */</span>
+  <span class="at">height</span>: <span class="nm">200px</span>;
+}</code></pre>
+
+<h2>box-sizing: border-box</h2>
+<p>Without this, padding and border are ADDED to the width. So a 300px box with 20px padding becomes 340px wide! That's confusing. Fix it:</p>
+
+<pre><code><span class="cm">/* Put this at the TOP of every CSS file */</span>
+<span class="fn">*</span> {
+  <span class="at">box-sizing</span>: <span class="vl">border-box</span>;
+}</code></pre>
+
+<p>Now padding and border are INCLUDED in the width. 300px means 300px, period.</p>
+
+<h2>See it in DevTools</h2>
+<p>Press <strong>F12</strong> in Chrome. Click on any element. You'll see the box model diagram showing content, padding, border, and margin with their sizes. This is your best friend for debugging CSS!</p>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn: Build a Card</div>
+  <ol>
+    <li>Create a <code>&lt;div class="card"&gt;</code> with an image, a title (h3), and a paragraph</li>
+    <li>Give <code>.card</code> a width of 300px</li>
+    <li>Add 20px of padding inside</li>
+    <li>Add a border with rounded corners</li>
+    <li>Center it on the page with <code>margin: 20px auto</code></li>
+    <li>Give it a background color</li>
+    <li>Press F12 and look at the box model in DevTools!</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 6 ==================== -->
+<section class="chapter" id="lesson-6">
+<h1><span class="lesson-badge badge-css">06</span> Flexbox — Easy Layouts</h1>
+
+<h2>The problem</h2>
+<p>By default, everything stacks vertically — each element goes below the previous one. But what if you want things side by side? Like a navigation bar with a logo on the left and links on the right? That's what <strong>Flexbox</strong> is for.</p>
+
+<h2>How to use Flexbox</h2>
+<p>Add <code>display: flex</code> to the <strong>parent</strong> (container). The children inside will line up in a row.</p>
+
+<pre><code><span class="cm">&lt;!-- HTML --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class</span>=<span class="vl">"container"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;div</span> <span class="at">class</span>=<span class="vl">"box"</span><span class="tg">&gt;</span>1<span class="tg">&lt;/div&gt;</span>
+  <span class="tg">&lt;div</span> <span class="at">class</span>=<span class="vl">"box"</span><span class="tg">&gt;</span>2<span class="tg">&lt;/div&gt;</span>
+  <span class="tg">&lt;div</span> <span class="at">class</span>=<span class="vl">"box"</span><span class="tg">&gt;</span>3<span class="tg">&lt;/div&gt;</span>
+<span class="tg">&lt;/div&gt;</span></code></pre>
+
+<pre><code><span class="fn">.container</span> {
+  <span class="at">display</span>: <span class="vl">flex</span>;    <span class="cm">/* This is the magic line! */</span>
+  <span class="at">gap</span>: <span class="nm">10px</span>;        <span class="cm">/* Space between items */</span>
+}
+
+<span class="fn">.box</span> {
+  <span class="at">background</span>: <span class="vl">#4e9af5</span>;
+  <span class="at">color</span>: <span class="vl">white</span>;
+  <span class="at">padding</span>: <span class="nm">20px 30px</span>;
+  <span class="at">border-radius</span>: <span class="nm">8px</span>;
+}</code></pre>
+
+<p>Without flex: boxes stack vertically. With flex: boxes sit side by side!</p>
+
+<h2>justify-content — horizontal alignment</h2>
+<pre><code><span class="fn">.container</span> {
+  <span class="at">display</span>: <span class="vl">flex</span>;
+  <span class="at">justify-content</span>: <span class="vl">flex-start</span>;    <span class="cm">/* Left (default) */</span>
+  <span class="at">justify-content</span>: <span class="vl">center</span>;       <span class="cm">/* Center */</span>
+  <span class="at">justify-content</span>: <span class="vl">flex-end</span>;      <span class="cm">/* Right */</span>
+  <span class="at">justify-content</span>: <span class="vl">space-between</span>; <span class="cm">/* Spread out evenly */</span>
+}</code></pre>
+
+<h2>align-items — vertical alignment</h2>
+<pre><code><span class="fn">.container</span> {
+  <span class="at">display</span>: <span class="vl">flex</span>;
+  <span class="at">height</span>: <span class="nm">200px</span>;              <span class="cm">/* Need height for this to work */</span>
+  <span class="at">align-items</span>: <span class="vl">flex-start</span>;    <span class="cm">/* Top */</span>
+  <span class="at">align-items</span>: <span class="vl">center</span>;        <span class="cm">/* Middle */</span>
+  <span class="at">align-items</span>: <span class="vl">flex-end</span>;      <span class="cm">/* Bottom */</span>
+}</code></pre>
+
+<div class="callout tip">
+  <div class="callout-title">The perfect centering formula</div>
+  Want to center something both horizontally AND vertically?
+  <pre><code><span class="fn">.container</span> {
+  <span class="at">display</span>: <span class="vl">flex</span>;
+  <span class="at">justify-content</span>: <span class="vl">center</span>;
+  <span class="at">align-items</span>: <span class="vl">center</span>;
+}</code></pre>
+  These 3 lines. Memorize them. You'll use them a LOT.
+</div>
+
+<h2>flex-wrap — wrap to the next line</h2>
+<pre><code><span class="fn">.container</span> {
+  <span class="at">display</span>: <span class="vl">flex</span>;
+  <span class="at">flex-wrap</span>: <span class="vl">wrap</span>;   <span class="cm">/* If items don't fit, they go to the next line */</span>
+  <span class="at">gap</span>: <span class="nm">10px</span>;
+}</code></pre>
+
+<h2>flex-direction — change direction</h2>
+<pre><code><span class="fn">.container</span> {
+  <span class="at">display</span>: <span class="vl">flex</span>;
+  <span class="at">flex-direction</span>: <span class="vl">row</span>;      <span class="cm">/* Side by side (default) */</span>
+  <span class="at">flex-direction</span>: <span class="vl">column</span>;   <span class="cm">/* Stack vertically */</span>
+}</code></pre>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn: Build a Navbar</div>
+  <ol>
+    <li>Create a <code>&lt;nav class="navbar"&gt;</code> with a logo (h2) and 3 links</li>
+    <li>Use <code>display: flex</code> on <code>.navbar</code></li>
+    <li>Use <code>justify-content: space-between</code> — logo on the left, links on the right</li>
+    <li>Use <code>align-items: center</code> — everything vertically centered</li>
+    <li>Add padding and a background color</li>
+    <li>Try different <code>justify-content</code> values to see what they do!</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 7 ==================== -->
+<section class="chapter" id="lesson-7">
+<h1><span class="lesson-badge badge-css">07</span> Positioning</h1>
+
+<h2>position property</h2>
+<p>Sometimes flexbox isn't enough. You need to place something at an exact spot — like a badge on top of a card, or a navbar that stays at the top when you scroll.</p>
+
+<table>
+  <tr><th>Position</th><th>What it does</th><th>When to use</th></tr>
+  <tr><td><code>static</code></td><td>Normal flow (default)</td><td>Almost never typed — it's the default</td></tr>
+  <tr><td><code>relative</code></td><td>Shifts from its normal position</td><td>Small nudges, or as a container for absolute</td></tr>
+  <tr><td><code>absolute</code></td><td>Placed inside its nearest positioned parent</td><td>Badges, overlays, floating elements</td></tr>
+  <tr><td><code>fixed</code></td><td>Stuck to the screen — doesn't scroll</td><td>Sticky navbars, floating buttons</td></tr>
+</table>
+
+<h3>absolute + relative combo</h3>
+<p>This is the most useful positioning trick. The parent gets <code>relative</code>, the child gets <code>absolute</code>:</p>
+
+<pre><code><span class="cm">&lt;!-- HTML --&gt;</span>
+<span class="tg">&lt;div</span> <span class="at">class</span>=<span class="vl">"card"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;span</span> <span class="at">class</span>=<span class="vl">"badge"</span><span class="tg">&gt;</span>NEW<span class="tg">&lt;/span&gt;</span>
+  <span class="tg">&lt;h3&gt;</span>Cool Product<span class="tg">&lt;/h3&gt;</span>
+  <span class="tg">&lt;p&gt;</span>This is a great product.<span class="tg">&lt;/p&gt;</span>
+<span class="tg">&lt;/div&gt;</span></code></pre>
+
+<pre><code><span class="fn">.card</span> {
+  <span class="at">position</span>: <span class="vl">relative</span>;  <span class="cm">/* IMPORTANT — makes this the anchor */</span>
+  <span class="at">padding</span>: <span class="nm">20px</span>;
+  <span class="at">border</span>: <span class="nm">1px</span> <span class="vl">solid</span> <span class="vl">#ddd</span>;
+  <span class="at">border-radius</span>: <span class="nm">8px</span>;
+}
+
+<span class="fn">.badge</span> {
+  <span class="at">position</span>: <span class="vl">absolute</span>;
+  <span class="at">top</span>: <span class="nm">-10px</span>;          <span class="cm">/* 10px above the card */</span>
+  <span class="at">right</span>: <span class="nm">-10px</span>;        <span class="cm">/* 10px to the right */</span>
+  <span class="at">background</span>: <span class="vl">red</span>;
+  <span class="at">color</span>: <span class="vl">white</span>;
+  <span class="at">padding</span>: <span class="nm">4px 10px</span>;
+  <span class="at">border-radius</span>: <span class="nm">4px</span>;
+  <span class="at">font-size</span>: <span class="nm">12px</span>;
+}</code></pre>
+
+<div class="callout gotcha">
+  <div class="callout-title">Most common mistake!</div>
+  If you use <code>absolute</code> on a child but forget to put <code>position: relative</code> on the parent, the child will fly to the top-left corner of the entire page! Always set the parent to <code>relative</code>.
+</div>
+
+<h3>fixed — stuck to the screen</h3>
+<pre><code><span class="fn">.navbar</span> {
+  <span class="at">position</span>: <span class="vl">fixed</span>;
+  <span class="at">top</span>: <span class="nm">0</span>;
+  <span class="at">left</span>: <span class="nm">0</span>;
+  <span class="at">width</span>: <span class="nm">100%</span>;
+  <span class="at">background</span>: <span class="vl">white</span>;
+  <span class="at">z-index</span>: <span class="nm">100</span>;
+  <span class="at">box-shadow</span>: <span class="nm">0 2px 8px</span> <span class="vl">rgba(0,0,0,0.1)</span>;
+}</code></pre>
+
+<h2>z-index — what's on top?</h2>
+<p>When elements overlap, <code>z-index</code> decides which one is on top. Higher number = on top.</p>
+<pre><code><span class="fn">.popup</span>   { <span class="at">z-index</span>: <span class="nm">100</span>; }  <span class="cm">/* On top of everything */</span>
+<span class="fn">.overlay</span> { <span class="at">z-index</span>: <span class="nm">50</span>; }   <span class="cm">/* Behind the popup */</span>
+<span class="fn">.content</span> { <span class="at">z-index</span>: <span class="nm">1</span>; }    <span class="cm">/* Behind the overlay */</span></code></pre>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn: Profile Card with Badge</div>
+  <ol>
+    <li>Create a card (200x250px, border, rounded corners)</li>
+    <li>Put an image at the top</li>
+    <li>Add a green "Online" badge in the top-right corner using absolute positioning</li>
+    <li>Center the card on the page</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 8 ==================== -->
+<section class="chapter" id="lesson-8">
+<h1><span class="lesson-badge badge-css">08</span> Hover Effects & Responsive</h1>
+
+<h2>Hover — when the mouse goes over</h2>
+<pre><code><span class="fn">.button</span> {
+  <span class="at">background</span>: <span class="vl">#4e9af5</span>;
+  <span class="at">color</span>: <span class="vl">white</span>;
+  <span class="at">padding</span>: <span class="nm">10px 20px</span>;
+  <span class="at">border</span>: <span class="vl">none</span>;
+  <span class="at">border-radius</span>: <span class="nm">8px</span>;
+  <span class="at">cursor</span>: <span class="vl">pointer</span>;
+}
+
+<span class="cm">/* When the mouse goes over the button */</span>
+<span class="fn">.button:hover</span> {
+  <span class="at">background</span>: <span class="vl">#2d7ab5</span>;
+}
+
+<span class="cm">/* When the button is being clicked */</span>
+<span class="fn">.button:active</span> {
+  <span class="at">transform</span>: <span class="vl">scale(0.95)</span>;  <span class="cm">/* Slightly smaller */</span>
+}
+
+<span class="cm">/* When an input is selected */</span>
+<span class="fn">input:focus</span> {
+  <span class="at">border-color</span>: <span class="vl">#4e9af5</span>;
+  <span class="at">outline</span>: <span class="vl">none</span>;
+}</code></pre>
+
+<h2>Transition — smooth changes</h2>
+<p>Without transition, hover changes happen instantly. With transition, they animate smoothly:</p>
+
+<pre><code><span class="fn">.button</span> {
+  <span class="at">background</span>: <span class="vl">#4e9af5</span>;
+  <span class="at">color</span>: <span class="vl">white</span>;
+  <span class="at">padding</span>: <span class="nm">12px 24px</span>;
+  <span class="at">border</span>: <span class="vl">none</span>;
+  <span class="at">border-radius</span>: <span class="nm">8px</span>;
+  <span class="at">cursor</span>: <span class="vl">pointer</span>;
+  <span class="at">transition</span>: <span class="vl">all 0.3s</span>;  <span class="cm">/* Animate everything over 0.3 seconds */</span>
+}
+
+<span class="fn">.button:hover</span> {
+  <span class="at">background</span>: <span class="vl">#2d7ab5</span>;
+  <span class="at">transform</span>: <span class="vl">translateY(-2px)</span>;  <span class="cm">/* Float up slightly */</span>
+  <span class="at">box-shadow</span>: <span class="nm">0 4px 12px</span> <span class="vl">rgba(0,0,0,0.2)</span>;
+}</code></pre>
+
+<div class="callout tip">
+  <div class="callout-title">Where to put transition</div>
+  Put <code>transition</code> on the normal state (not the <code>:hover</code> state). This makes it animate both ways — going in AND coming out.
+</div>
+
+<h2>Responsive Design</h2>
+<p>Your page needs to look good on big screens (computers) AND small screens (phones). Use <code>@media</code> to change styles based on screen size:</p>
+
+<pre><code><span class="cm">/* Normal styles — for big screens */</span>
+<span class="fn">.cards</span> {
+  <span class="at">display</span>: <span class="vl">flex</span>;
+  <span class="at">gap</span>: <span class="nm">20px</span>;
+}
+
+<span class="fn">.card</span> {
+  <span class="at">width</span>: <span class="nm">300px</span>;
+}
+
+<span class="cm">/* When the screen is 768px or narrower (phones/tablets) */</span>
+<span class="kw">@media</span> (<span class="at">max-width</span>: <span class="nm">768px</span>) {
+  <span class="fn">.cards</span> {
+    <span class="at">flex-direction</span>: <span class="vl">column</span>;  <span class="cm">/* Stack vertically */</span>
+  }
+
+  <span class="fn">.card</span> {
+    <span class="at">width</span>: <span class="nm">100%</span>;             <span class="cm">/* Full width */</span>
+  }
+}</code></pre>
+
+<div class="callout info">
+  <div class="callout-title">Testing responsive</div>
+  In Chrome DevTools (F12), click the phone icon (or press Ctrl+Shift+M). You can see how your page looks on different screen sizes!
+</div>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn!</div>
+  <ol>
+    <li>Create 3 buttons: one blue, one gray, one red</li>
+    <li>Add hover effects — change background color on hover</li>
+    <li>Add <code>transition: all 0.3s</code> for smooth animation</li>
+    <li>On hover, make them float up with <code>translateY(-2px)</code> and add a shadow</li>
+    <li>Create 3 cards in a row (flexbox). On small screens, make them stack vertically.</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 9 ==================== -->
+<section class="chapter" id="lesson-9">
+<h1><span class="lesson-badge badge-css">09</span> CSS Project Day</h1>
+
+<p>Today you put everything together. Build a complete portfolio page from scratch using all the CSS you've learned.</p>
+
+<h2>What to build</h2>
+<div class="structure-box">1. <span class="arrow">→</span> Fixed navbar (logo left, links right, flexbox)
+2. <span class="arrow">→</span> Hero section (big heading, short description, button)
+3. <span class="arrow">→</span> About section (image + text side by side with flexbox)
+4. <span class="arrow">→</span> Skills section (3-4 cards in a row, flex-wrap)
+5. <span class="arrow">→</span> Contact form (centered, styled inputs)
+6. <span class="arrow">→</span> Footer (different background color)</div>
+
+<h2>Starter code</h2>
+<pre><code><span class="cm">/* Start your CSS with these resets */</span>
+<span class="fn">*</span> {
+  <span class="at">box-sizing</span>: <span class="vl">border-box</span>;
+  <span class="at">margin</span>: <span class="nm">0</span>;
+  <span class="at">padding</span>: <span class="nm">0</span>;
+}
+
+<span class="fn">body</span> {
+  <span class="at">font-family</span>: <span class="vl">Arial, sans-serif</span>;
+  <span class="at">color</span>: <span class="vl">#333</span>;
+  <span class="at">line-height</span>: <span class="nm">1.6</span>;
+}
+
+<span class="fn">.navbar</span> {
+  <span class="at">display</span>: <span class="vl">flex</span>;
+  <span class="at">justify-content</span>: <span class="vl">space-between</span>;
+  <span class="at">align-items</span>: <span class="vl">center</span>;
+  <span class="at">padding</span>: <span class="nm">15px 30px</span>;
+  <span class="at">background</span>: <span class="vl">white</span>;
+  <span class="at">position</span>: <span class="vl">fixed</span>;
+  <span class="at">top</span>: <span class="nm">0</span>;
+  <span class="at">width</span>: <span class="nm">100%</span>;
+  <span class="at">box-shadow</span>: <span class="nm">0 2px 8px</span> <span class="vl">rgba(0,0,0,0.1)</span>;
+  <span class="at">z-index</span>: <span class="nm">100</span>;
+}
+
+<span class="fn">.hero</span> {
+  <span class="at">text-align</span>: <span class="vl">center</span>;
+  <span class="at">padding</span>: <span class="nm">140px 20px 80px</span>;  <span class="cm">/* Extra top padding for fixed navbar */</span>
+  <span class="at">background</span>: <span class="vl">#f0f4f8</span>;
+}
+
+<span class="fn">.cards</span> {
+  <span class="at">display</span>: <span class="vl">flex</span>;
+  <span class="at">gap</span>: <span class="nm">20px</span>;
+  <span class="at">justify-content</span>: <span class="vl">center</span>;
+  <span class="at">flex-wrap</span>: <span class="vl">wrap</span>;
+  <span class="at">padding</span>: <span class="nm">40px 20px</span>;
+}
+
+<span class="fn">.card</span> {
+  <span class="at">background</span>: <span class="vl">white</span>;
+  <span class="at">padding</span>: <span class="nm">30px</span>;
+  <span class="at">border-radius</span>: <span class="nm">12px</span>;
+  <span class="at">width</span>: <span class="nm">250px</span>;
+  <span class="at">box-shadow</span>: <span class="nm">0 2px 8px</span> <span class="vl">rgba(0,0,0,0.1)</span>;
+  <span class="at">transition</span>: <span class="vl">transform 0.3s, box-shadow 0.3s</span>;
+}
+
+<span class="fn">.card:hover</span> {
+  <span class="at">transform</span>: <span class="vl">translateY(-5px)</span>;
+  <span class="at">box-shadow</span>: <span class="nm">0 8px 24px</span> <span class="vl">rgba(0,0,0,0.15)</span>;
+}
+
+<span class="kw">@media</span> (<span class="at">max-width</span>: <span class="nm">768px</span>) {
+  <span class="fn">.cards</span> { <span class="at">flex-direction</span>: <span class="vl">column</span>; <span class="at">align-items</span>: <span class="vl">center</span>; }
+  <span class="fn">.card</span> { <span class="at">width</span>: <span class="nm">100%</span>; <span class="at">max-width</span>: <span class="nm">400px</span>; }
+}</code></pre>
+
+<div class="callout tip">
+  <div class="callout-title">For the teacher</div>
+  Let them type the code themselves. Only show the starter as a reference. When they get stuck, open DevTools together and figure out the problem. The goal is for them to OWN this page.
+</div>
+
+<div class="project">
+  <div class="project-title">Project: My Portfolio</div>
+  <p>Each student builds their own portfolio page. Use their real name, real hobbies, real interests. It should be responsive — check it looks good on both desktop and phone size. This is something they can show friends and family!</p>
+</div>
+</section>
+
+<div class="divider">Phase 3 — JavaScript</div>
+
+<!-- ==================== LESSON 10 ==================== -->
+<section class="chapter" id="lesson-10">
+<h1><span class="lesson-badge badge-js">10</span> Hello JavaScript!</h1>
+
+<div class="analogy">
+  <div class="callout-title">What is JavaScript?</div>
+  HTML builds the skeleton. CSS makes it look good. <strong>JavaScript makes it DO things.</strong> When you click a button and something happens — that's JavaScript. When a website loads new content without refreshing — JavaScript. When a form checks if your email is valid — JavaScript. It's the brain of the website.
+</div>
+
+<h2>Where to write JavaScript</h2>
+<p>Just like CSS, you can write it inline or in a separate file. Always use a separate file:</p>
+
+<pre><code><span class="cm">&lt;!-- Add this at the bottom of your body tag --&gt;</span>
+<span class="tg">&lt;body&gt;</span>
+  <span class="tg">&lt;h1&gt;</span>Hello<span class="tg">&lt;/h1&gt;</span>
+
+  <span class="tg">&lt;script</span> <span class="at">src</span>=<span class="vl">"script.js"</span><span class="tg">&gt;&lt;/script&gt;</span>
+<span class="tg">&lt;/body&gt;</span></code></pre>
+
+<pre><code><span class="cm">// script.js</span>
+<span class="fn">alert</span>(<span class="str">"Hello World!"</span>);</code></pre>
+
+<h2>console.log() — your best friend</h2>
+<p><code>console.log()</code> prints messages to the Console. You can see the Console by pressing <strong>F12</strong> in Chrome and clicking the "Console" tab.</p>
+
+<pre><code><span class="fn">console.log</span>(<span class="str">"Hello!"</span>);          <span class="cm">// Text (a "string")</span>
+<span class="fn">console.log</span>(<span class="nm">42</span>);                <span class="cm">// A number</span>
+<span class="fn">console.log</span>(<span class="nm">10</span> + <span class="nm">5</span>);            <span class="cm">// Math! Shows: 15</span>
+<span class="fn">console.log</span>(<span class="str">"Answer:"</span>, <span class="nm">10</span> + <span class="nm">5</span>); <span class="cm">// Shows: Answer: 15</span></code></pre>
+
+<div class="callout tip">
+  <div class="callout-title">Always use console.log()</div>
+  Whenever you're not sure what's happening in your code, add a <code>console.log()</code> to check. It's like peeking inside your code to see what's going on. Professional programmers do this all the time!
+</div>
+
+<h2>Variables — storing information</h2>
+<p>A variable is like a labeled box. You put something in the box, give it a name, and use it later.</p>
+
+<pre><code><span class="kw">let</span> name = <span class="str">"Ali"</span>;            <span class="cm">// Can be changed later</span>
+<span class="kw">let</span> age = <span class="nm">13</span>;                <span class="cm">// A number</span>
+<span class="kw">const</span> country = <span class="str">"Uzbekistan"</span>; <span class="cm">// CANNOT be changed (constant)</span>
+
+<span class="fn">console.log</span>(name);           <span class="cm">// Ali</span>
+<span class="fn">console.log</span>(age);            <span class="cm">// 13</span>
+
+name = <span class="str">"Vali"</span>;               <span class="cm">// Changing a let variable — OK!</span>
+<span class="fn">console.log</span>(name);           <span class="cm">// Vali</span>
+
+<span class="cm">// country = "Kazakhstan";   — ERROR! Can't change const</span></code></pre>
+
+<div class="callout info">
+  <div class="callout-title">let vs const — when to use which?</div>
+  <strong>let</strong> = when the value might change (age, score, name).<br>
+  <strong>const</strong> = when the value should never change (pi = 3.14, country name).<br>
+  Rule of thumb: use <code>const</code> by default. Switch to <code>let</code> only when you need to change it.
+</div>
+
+<h2>Data types — what kind of data?</h2>
+<pre><code><span class="kw">let</span> name = <span class="str">"Sara"</span>;         <span class="cm">// String — text (always in quotes)</span>
+<span class="kw">let</span> age = <span class="nm">12</span>;               <span class="cm">// Number — a number (no quotes!)</span>
+<span class="kw">let</span> isStudent = <span class="kw">true</span>;      <span class="cm">// Boolean — true or false (yes/no)</span>
+
+<span class="fn">console.log</span>(<span class="kw">typeof</span> name);    <span class="cm">// "string"</span>
+<span class="fn">console.log</span>(<span class="kw">typeof</span> age);     <span class="cm">// "number"</span>
+<span class="fn">console.log</span>(<span class="kw">typeof</span> isStudent); <span class="cm">// "boolean"</span></code></pre>
+
+<h2>Getting input from the user</h2>
+<pre><code><span class="kw">let</span> name = <span class="fn">prompt</span>(<span class="str">"What is your name?"</span>);
+<span class="kw">let</span> age = <span class="fn">prompt</span>(<span class="str">"How old are you?"</span>);
+
+<span class="fn">console.log</span>(<span class="str">"Hello, "</span> + name);
+<span class="fn">console.log</span>(<span class="str">"You are "</span> + age + <span class="str">" years old"</span>);
+
+<span class="fn">alert</span>(<span class="str">"Welcome, "</span> + name + <span class="str">"!"</span>);</code></pre>
+
+<div class="callout gotcha">
+  <div class="callout-title">Watch out!</div>
+  <code>prompt()</code> always returns a <strong>string</strong>, even if the user types a number. If you want to do math with it, convert it: <code>Number(prompt("Enter a number"))</code>
+</div>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn: Mini Calculator</div>
+  <ol>
+    <li>Create <code>script.js</code> and link it to your HTML</li>
+    <li>Use <code>prompt()</code> to ask for two numbers</li>
+    <li>Convert them to numbers with <code>Number()</code></li>
+    <li>Add them together and show the result with <code>alert()</code></li>
+    <li>Also show the result in <code>console.log()</code></li>
+    <li>Bonus: also show subtraction, multiplication, and division</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 11 ==================== -->
+<section class="chapter" id="lesson-11">
+<h1><span class="lesson-badge badge-js">11</span> Operators & Strings</h1>
+
+<h2>Math operators</h2>
+<pre><code><span class="fn">console.log</span>(<span class="nm">10</span> + <span class="nm">3</span>);    <span class="cm">// 13  (addition)</span>
+<span class="fn">console.log</span>(<span class="nm">10</span> - <span class="nm">3</span>);    <span class="cm">// 7   (subtraction)</span>
+<span class="fn">console.log</span>(<span class="nm">10</span> * <span class="nm">3</span>);    <span class="cm">// 30  (multiplication)</span>
+<span class="fn">console.log</span>(<span class="nm">10</span> / <span class="nm">3</span>);    <span class="cm">// 3.33 (division)</span>
+<span class="fn">console.log</span>(<span class="nm">10</span> % <span class="nm">3</span>);    <span class="cm">// 1   (remainder — 10 ÷ 3 = 3 remainder 1)</span>
+
+<span class="kw">let</span> score = <span class="nm">5</span>;
+score++;            <span class="cm">// 6 (add 1)</span>
+score--;            <span class="cm">// 5 (subtract 1)</span>
+score += <span class="nm">10</span>;         <span class="cm">// 15 (same as: score = score + 10)</span>
+score *= <span class="nm">2</span>;          <span class="cm">// 30 (same as: score = score * 2)</span></code></pre>
+
+<h2>Comparison — is this true or false?</h2>
+<pre><code><span class="fn">console.log</span>(<span class="nm">5</span> === <span class="nm">5</span>);     <span class="cm">// true  (equal)</span>
+<span class="fn">console.log</span>(<span class="nm">5</span> === <span class="str">"5"</span>);   <span class="cm">// false (different type!)</span>
+<span class="fn">console.log</span>(<span class="nm">5</span> !== <span class="nm">3</span>);     <span class="cm">// true  (not equal)</span>
+<span class="fn">console.log</span>(<span class="nm">10</span> > <span class="nm">5</span>);      <span class="cm">// true  (greater than)</span>
+<span class="fn">console.log</span>(<span class="nm">3</span> < <span class="nm">1</span>);       <span class="cm">// false (less than)</span>
+<span class="fn">console.log</span>(<span class="nm">5</span> >= <span class="nm">5</span>);      <span class="cm">// true  (greater than or equal)</span></code></pre>
+
+<div class="callout gotcha">
+  <div class="callout-title">Always use === (three equals signs)</div>
+  <code>==</code> (two) is sloppy — it says <code>5 == "5"</code> is true (even though one is a number and one is text!). <code>===</code> (three) is strict and correct. Always use three.
+</div>
+
+<h2>Working with strings</h2>
+<pre><code><span class="kw">let</span> name = <span class="str">"ali"</span>;
+
+<span class="fn">console.log</span>(name.<span class="fn">length</span>);            <span class="cm">// 3 (how many characters)</span>
+<span class="fn">console.log</span>(name.<span class="fn">toUpperCase</span>());     <span class="cm">// "ALI"</span>
+<span class="fn">console.log</span>(name.<span class="fn">toLowerCase</span>());     <span class="cm">// "ali"</span>
+<span class="fn">console.log</span>(name.<span class="fn">includes</span>(<span class="str">"al"</span>));   <span class="cm">// true (contains "al"?)</span>
+<span class="fn">console.log</span>(name[<span class="nm">0</span>]);                <span class="cm">// "a" (first character)</span>
+<span class="fn">console.log</span>(name[<span class="nm">2</span>]);                <span class="cm">// "i" (third character — counting starts at 0!)</span></code></pre>
+
+<h2>Template literals — the easy way to combine strings</h2>
+<pre><code><span class="kw">let</span> name = <span class="str">"Sara"</span>;
+<span class="kw">let</span> age = <span class="nm">12</span>;
+
+<span class="cm">// Old way (messy with + signs)</span>
+<span class="fn">console.log</span>(<span class="str">"Hello, "</span> + name + <span class="str">"! You are "</span> + age + <span class="str">" years old."</span>);
+
+<span class="cm">// New way (clean and easy — use backticks!)</span>
+<span class="fn">console.log</span>(<span class="str">`Hello, ${name}! You are ${age} years old.`</span>);
+
+<span class="cm">// You can even do math inside!</span>
+<span class="fn">console.log</span>(<span class="str">`Next year you'll be ${age + 1}`</span>);</code></pre>
+
+<div class="callout info">
+  <div class="callout-title">Backtick — where is it?</div>
+  The backtick <code>`</code> is NOT a regular quote! It's the key above <strong>Tab</strong> on your keyboard (same key as ~). Inside backticks, <code>${...}</code> lets you put any JavaScript expression.
+</div>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn!</div>
+  <ol>
+    <li>Ask the user for their name and age using <code>prompt()</code></li>
+    <li>Using template literals, show: <code>`Hello, ${name}! You are ${age} years old.`</code></li>
+    <li>Calculate and show how old they'll be next year</li>
+    <li>Show how many letters are in their name: <code>`Your name has ${name.length} letters`</code></li>
+    <li>Show their name in ALL CAPS</li>
+    <li>Bonus: calculate what year they were born in</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 12 ==================== -->
+<section class="chapter" id="lesson-12">
+<h1><span class="lesson-badge badge-js">12</span> Making Decisions (if/else)</h1>
+
+<p>Sometimes your code needs to make a choice. "If this is true, do this. Otherwise, do that." That's what <code>if</code> and <code>else</code> are for.</p>
+
+<h2>Basic if/else</h2>
+<pre><code><span class="kw">let</span> age = <span class="nm">16</span>;
+
+<span class="kw">if</span> (age >= <span class="nm">18</span>) {
+  <span class="fn">console.log</span>(<span class="str">"You're an adult!"</span>);
+} <span class="kw">else</span> {
+  <span class="fn">console.log</span>(<span class="str">"You're still a kid!"</span>);
+}</code></pre>
+
+<div class="analogy">
+  <div class="callout-title">Think of it like a fork in the road</div>
+  You're walking and the road splits. There's a sign: "If you're 18 or older, go left. Otherwise, go right." Your code does the same — it checks a condition and picks a path.
+</div>
+
+<h2>Multiple conditions — else if</h2>
+<pre><code><span class="kw">let</span> score = <span class="nm">85</span>;
+
+<span class="kw">if</span> (score >= <span class="nm">90</span>) {
+  <span class="fn">console.log</span>(<span class="str">"Grade: A — Excellent!"</span>);
+} <span class="kw">else if</span> (score >= <span class="nm">80</span>) {
+  <span class="fn">console.log</span>(<span class="str">"Grade: B — Good job!"</span>);
+} <span class="kw">else if</span> (score >= <span class="nm">60</span>) {
+  <span class="fn">console.log</span>(<span class="str">"Grade: C — Not bad"</span>);
+} <span class="kw">else</span> {
+  <span class="fn">console.log</span>(<span class="str">"Grade: F — Study more!"</span>);
+}</code></pre>
+
+<p>The computer checks each condition from top to bottom. As soon as one is true, it runs that code and skips the rest.</p>
+
+<h2>Logical operators — combining conditions</h2>
+<pre><code><span class="kw">let</span> age = <span class="nm">15</span>;
+<span class="kw">let</span> hasTicket = <span class="kw">true</span>;
+
+<span class="cm">// && means AND — BOTH must be true</span>
+<span class="kw">if</span> (age >= <span class="nm">12</span> && hasTicket) {
+  <span class="fn">console.log</span>(<span class="str">"You can enter the movie!"</span>);
+}
+
+<span class="cm">// || means OR — at least ONE must be true</span>
+<span class="kw">if</span> (age < <span class="nm">5</span> || age > <span class="nm">65</span>) {
+  <span class="fn">console.log</span>(<span class="str">"Free entry!"</span>);
+}
+
+<span class="cm">// ! means NOT — flips true to false</span>
+<span class="kw">let</span> isRaining = <span class="kw">false</span>;
+<span class="kw">if</span> (!isRaining) {
+  <span class="fn">console.log</span>(<span class="str">"Let's go outside!"</span>);
+}</code></pre>
+
+<div class="callout tip">
+  <div class="callout-title">Read them like English</div>
+  <code>&&</code> = "AND". <code>||</code> = "OR". <code>!</code> = "NOT".<br>
+  Example: <code>age >= 12 && hasTicket</code> reads as "age is 12 or more AND has ticket."
+</div>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn: Grade Calculator</div>
+  <ol>
+    <li>Ask the user for their test score (0-100) using <code>prompt()</code></li>
+    <li>Convert it to a number with <code>Number()</code></li>
+    <li>Use if/else if/else to show the grade:</li>
+    <li>90-100 = "A", 80-89 = "B", 70-79 = "C", 60-69 = "D", below 60 = "F"</li>
+    <li>Bonus: if the score is below 0 or above 100, say "Invalid score!"</li>
+    <li>Bonus: if the score is exactly 100, say "Perfect score!"</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 13 ==================== -->
+<section class="chapter" id="lesson-13">
+<h1><span class="lesson-badge badge-js">13</span> Loops — Repeating Things</h1>
+
+<p>What if you want to do something 100 times? You don't write 100 lines of code — you use a <strong>loop</strong>.</p>
+
+<h2>for loop</h2>
+<pre><code><span class="kw">for</span> (<span class="kw">let</span> i = <span class="nm">1</span>; i <= <span class="nm">5</span>; i++) {
+  <span class="fn">console.log</span>(i);
+}
+<span class="cm">// Output: 1, 2, 3, 4, 5</span></code></pre>
+
+<div class="structure-box"><span class="kw">for</span> (<span class="kw">let</span> i = <span class="nm">1</span>;    i <= <span class="nm">5</span>;     i++)
+      ↑             ↑           ↑
+  Start at 1    Keep going    Add 1 each
+  (runs once)   while i ≤ 5   time around</div>
+
+<div class="analogy">
+  <div class="callout-title">Think of it like running laps</div>
+  "Start at lap 1. Keep running while you're at lap 5 or less. After each lap, add 1." That's exactly what a for loop does.
+</div>
+
+<h2>Examples</h2>
+<pre><code><span class="cm">// Multiplication table</span>
+<span class="kw">let</span> number = <span class="nm">7</span>;
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="nm">1</span>; i <= <span class="nm">10</span>; i++) {
+  <span class="fn">console.log</span>(<span class="str">`${number} x ${i} = ${number * i}`</span>);
+}
+
+<span class="cm">// Even numbers only</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="nm">2</span>; i <= <span class="nm">20</span>; i += <span class="nm">2</span>) {
+  <span class="fn">console.log</span>(i);   <span class="cm">// 2, 4, 6, 8, ... 20</span>
+}
+
+<span class="cm">// Countdown!</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="nm">10</span>; i >= <span class="nm">1</span>; i--) {
+  <span class="fn">console.log</span>(i);   <span class="cm">// 10, 9, 8, ... 1</span>
+}
+<span class="fn">console.log</span>(<span class="str">"Blast off! 🚀"</span>);</code></pre>
+
+<h2>while loop</h2>
+<p>Keeps going as long as the condition is true:</p>
+<pre><code><span class="kw">let</span> count = <span class="nm">1</span>;
+<span class="kw">while</span> (count <= <span class="nm">5</span>) {
+  <span class="fn">console.log</span>(count);
+  count++;   <span class="cm">// VERY IMPORTANT — without this, infinite loop!</span>
+}</code></pre>
+
+<div class="callout gotcha">
+  <div class="callout-title">Infinite loop danger!</div>
+  If the condition never becomes false, the loop runs forever and your browser freezes! Always make sure something changes to eventually make the condition false.
+</div>
+
+<h2>break and continue</h2>
+<pre><code><span class="cm">// break — stops the loop completely</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="nm">1</span>; i <= <span class="nm">100</span>; i++) {
+  <span class="kw">if</span> (i === <span class="nm">5</span>) <span class="kw">break</span>;     <span class="cm">// Stop at 5</span>
+  <span class="fn">console.log</span>(i);          <span class="cm">// 1, 2, 3, 4</span>
+}
+
+<span class="cm">// continue — skips this round, keeps going</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="nm">1</span>; i <= <span class="nm">10</span>; i++) {
+  <span class="kw">if</span> (i % <span class="nm">2</span> === <span class="nm">0</span>) <span class="kw">continue</span>;  <span class="cm">// Skip even numbers</span>
+  <span class="fn">console.log</span>(i);               <span class="cm">// 1, 3, 5, 7, 9</span>
+}</code></pre>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn: FizzBuzz!</div>
+  <p>This is a classic programming challenge! Loop from 1 to 30:</p>
+  <ol>
+    <li>If the number divides evenly by 3, print "Fizz"</li>
+    <li>If the number divides evenly by 5, print "Buzz"</li>
+    <li>If it divides by BOTH 3 and 5, print "FizzBuzz"</li>
+    <li>Otherwise, just print the number</li>
+  </ol>
+  <p>Hint: "divides evenly" means the remainder is 0: <code>i % 3 === 0</code></p>
+  <p>Hint: check the "both" case FIRST (why?)</p>
+</div>
+</section>
+
+<!-- ==================== LESSON 14 ==================== -->
+<section class="chapter" id="lesson-14">
+<h1><span class="lesson-badge badge-js">14</span> Functions</h1>
+
+<p>A function is a reusable block of code. Instead of writing the same code over and over, you put it in a function and call it whenever you need it.</p>
+
+<h2>Creating and calling a function</h2>
+<pre><code><span class="cm">// Create (declare) the function</span>
+<span class="kw">function</span> <span class="fn">sayHello</span>() {
+  <span class="fn">console.log</span>(<span class="str">"Hello there!"</span>);
+  <span class="fn">console.log</span>(<span class="str">"Welcome!"</span>);
+}
+
+<span class="cm">// Call (use) the function</span>
+<span class="fn">sayHello</span>();   <span class="cm">// Hello there! Welcome!</span>
+<span class="fn">sayHello</span>();   <span class="cm">// Can call it again and again!</span></code></pre>
+
+<h2>Parameters — giving information to a function</h2>
+<pre><code><span class="kw">function</span> <span class="fn">greet</span>(name) {
+  <span class="fn">console.log</span>(<span class="str">`Hello, ${name}!`</span>);
+}
+
+<span class="fn">greet</span>(<span class="str">"Ali"</span>);      <span class="cm">// Hello, Ali!</span>
+<span class="fn">greet</span>(<span class="str">"Sara"</span>);     <span class="cm">// Hello, Sara!</span>
+
+<span class="cm">// Multiple parameters</span>
+<span class="kw">function</span> <span class="fn">add</span>(a, b) {
+  <span class="fn">console.log</span>(<span class="str">`${a} + ${b} = ${a + b}`</span>);
+}
+
+<span class="fn">add</span>(<span class="nm">5</span>, <span class="nm">3</span>);     <span class="cm">// 5 + 3 = 8</span>
+<span class="fn">add</span>(<span class="nm">100</span>, <span class="nm">50</span>);  <span class="cm">// 100 + 50 = 150</span></code></pre>
+
+<div class="analogy">
+  <div class="callout-title">Function = a machine</div>
+  Think of a function as a <strong>machine</strong>. You put ingredients in (parameters), the machine does its thing, and something comes out (the result). A toaster: you put bread in, toast comes out. Same bread-making process every time, but you can put in different bread.
+</div>
+
+<h2>return — getting a result back</h2>
+<pre><code><span class="kw">function</span> <span class="fn">add</span>(a, b) {
+  <span class="kw">return</span> a + b;   <span class="cm">// Sends the answer back</span>
+}
+
+<span class="kw">let</span> result = <span class="fn">add</span>(<span class="nm">5</span>, <span class="nm">3</span>);
+<span class="fn">console.log</span>(result);    <span class="cm">// 8</span>
+
+<span class="cm">// Or use it directly</span>
+<span class="fn">console.log</span>(<span class="fn">add</span>(<span class="nm">10</span>, <span class="nm">20</span>));  <span class="cm">// 30</span></code></pre>
+
+<h2>Arrow functions — a shorter way to write them</h2>
+<pre><code><span class="cm">// Regular function</span>
+<span class="kw">function</span> <span class="fn">square</span>(n) {
+  <span class="kw">return</span> n * n;
+}
+
+<span class="cm">// Arrow function (same thing, shorter)</span>
+<span class="kw">const</span> <span class="fn">square</span> = (n) => {
+  <span class="kw">return</span> n * n;
+};
+
+<span class="cm">// Even shorter (one-line version)</span>
+<span class="kw">const</span> <span class="fn">square</span> = (n) => n * n;
+
+<span class="fn">console.log</span>(<span class="fn">square</span>(<span class="nm">5</span>));   <span class="cm">// 25</span></code></pre>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn: Build a Function Toolkit</div>
+  <p>Write these functions and test each one:</p>
+  <ol>
+    <li><code>greet(name)</code> — logs "Hello, {name}!"</li>
+    <li><code>add(a, b)</code> — returns the sum</li>
+    <li><code>isEven(number)</code> — returns true if even, false if odd</li>
+    <li><code>celsiusToFahrenheit(c)</code> — returns F (formula: F = C × 9/5 + 32)</li>
+    <li><code>max(a, b)</code> — returns the bigger number</li>
+    <li>Test them all with console.log!</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 15 ==================== -->
+<section class="chapter" id="lesson-15">
+<h1><span class="lesson-badge badge-js">15</span> Arrays & Objects</h1>
+
+<h2>Arrays — ordered lists</h2>
+<p>An array holds multiple values in order, like a shopping list:</p>
+
+<pre><code><span class="kw">let</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"orange"</span>];
+
+<span class="fn">console.log</span>(fruits[<span class="nm">0</span>]);      <span class="cm">// "apple"  (first — counting starts at 0!)</span>
+<span class="fn">console.log</span>(fruits[<span class="nm">1</span>]);      <span class="cm">// "banana" (second)</span>
+<span class="fn">console.log</span>(fruits.<span class="fn">length</span>);  <span class="cm">// 3 (how many items)</span>
+
+fruits.<span class="fn">push</span>(<span class="str">"grape"</span>);        <span class="cm">// Add to the end</span>
+fruits.<span class="fn">pop</span>();                <span class="cm">// Remove the last one</span>
+
+<span class="fn">console.log</span>(fruits.<span class="fn">includes</span>(<span class="str">"apple"</span>));  <span class="cm">// true</span></code></pre>
+
+<div class="callout info">
+  <div class="callout-title">Why does counting start at 0?</div>
+  This trips up every beginner! In programming, the first item is at position <strong>0</strong>, not 1. So <code>fruits[0]</code> is the first item, <code>fruits[1]</code> is the second, etc. You just have to get used to it!
+</div>
+
+<h2>Looping through arrays</h2>
+<pre><code><span class="kw">let</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"orange"</span>];
+
+<span class="cm">// for loop</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="nm">0</span>; i < fruits.<span class="fn">length</span>; i++) {
+  <span class="fn">console.log</span>(fruits[i]);
+}
+
+<span class="cm">// forEach — easier to read</span>
+fruits.<span class="fn">forEach</span>((fruit) => {
+  <span class="fn">console.log</span>(<span class="str">`I like ${fruit}`</span>);
+});</code></pre>
+
+<h2>Objects — labeled data</h2>
+<p>An object stores data with names (keys) instead of numbers:</p>
+
+<pre><code><span class="kw">let</span> student = {
+  name: <span class="str">"Ali"</span>,
+  age: <span class="nm">13</span>,
+  grade: <span class="str">"7th"</span>,
+  isStudent: <span class="kw">true</span>
+};
+
+<span class="fn">console.log</span>(student.name);     <span class="cm">// "Ali"</span>
+<span class="fn">console.log</span>(student.age);      <span class="cm">// 13</span>
+<span class="fn">console.log</span>(student[<span class="str">"grade"</span>]); <span class="cm">// "7th" (another way)</span>
+
+student.age = <span class="nm">14</span>;               <span class="cm">// Change a value</span>
+student.school = <span class="str">"Lincoln Middle"</span>; <span class="cm">// Add new data</span></code></pre>
+
+<h2>Array of Objects — the most important pattern</h2>
+<p>This is how data works in the real world — a list of things, where each thing has details:</p>
+
+<pre><code><span class="kw">let</span> students = [
+  { name: <span class="str">"Ali"</span>,  age: <span class="nm">13</span>, score: <span class="nm">92</span> },
+  { name: <span class="str">"Sara"</span>, age: <span class="nm">12</span>, score: <span class="nm">88</span> },
+  { name: <span class="str">"Omar"</span>, age: <span class="nm">14</span>, score: <span class="nm">75</span> },
+];
+
+<span class="cm">// Print everyone</span>
+students.<span class="fn">forEach</span>((s) => {
+  <span class="fn">console.log</span>(<span class="str">`${s.name} — age ${s.age}, score: ${s.score}`</span>);
+});
+
+<span class="cm">// Find someone</span>
+<span class="kw">let</span> found = students.<span class="fn">find</span>((s) => s.name === <span class="str">"Sara"</span>);
+<span class="fn">console.log</span>(found);  <span class="cm">// {name: "Sara", age: 12, score: 88}</span>
+
+<span class="cm">// Filter — get all high scorers</span>
+<span class="kw">let</span> topStudents = students.<span class="fn">filter</span>((s) => s.score >= <span class="nm">85</span>);
+<span class="fn">console.log</span>(topStudents);  <span class="cm">// Ali and Sara</span></code></pre>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn: Student Database</div>
+  <ol>
+    <li>Create an array with 5 student objects (name, age, score)</li>
+    <li>Use forEach to print all of them nicely</li>
+    <li>Find all students with scores above 80</li>
+    <li>Calculate the average score (add all scores, divide by count)</li>
+    <li>Find the student with the highest score</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 16 ==================== -->
+<section class="chapter" id="lesson-16">
+<h1><span class="lesson-badge badge-js">16</span> DOM — Changing the Page</h1>
+
+<div class="analogy">
+  <div class="callout-title">What is the DOM?</div>
+  When the browser reads your HTML, it creates a live model of every element on the page — the <strong>DOM</strong> (Document Object Model). JavaScript can reach into this model and change anything: text, colors, size, even add or remove elements. The page updates instantly!
+</div>
+
+<h2>Finding elements</h2>
+<pre><code><span class="cm">// Find ONE element by its ID</span>
+<span class="kw">let</span> title = <span class="fn">document.getElementById</span>(<span class="str">"main-title"</span>);
+
+<span class="cm">// Find ONE element by CSS selector</span>
+<span class="kw">let</span> button = <span class="fn">document.querySelector</span>(<span class="str">".my-button"</span>);
+
+<span class="cm">// Find ALL matching elements</span>
+<span class="kw">let</span> items = <span class="fn">document.querySelectorAll</span>(<span class="str">".item"</span>);</code></pre>
+
+<h2>Changing text</h2>
+<pre><code><span class="cm">&lt;!-- HTML --&gt;</span>
+<span class="tg">&lt;h1</span> <span class="at">id</span>=<span class="vl">"title"</span><span class="tg">&gt;</span>Old Title<span class="tg">&lt;/h1&gt;</span></code></pre>
+
+<pre><code><span class="cm">// JavaScript</span>
+<span class="kw">let</span> title = <span class="fn">document.getElementById</span>(<span class="str">"title"</span>);
+title.<span class="fn">textContent</span> = <span class="str">"New Title!"</span>;   <span class="cm">// Change the text</span>
+title.<span class="fn">innerHTML</span> = <span class="str">"&lt;em&gt;Fancy&lt;/em&gt; Title"</span>;  <span class="cm">// With HTML tags</span></code></pre>
+
+<h2>Changing styles</h2>
+<pre><code><span class="kw">let</span> title = <span class="fn">document.getElementById</span>(<span class="str">"title"</span>);
+title.<span class="fn">style</span>.color = <span class="str">"red"</span>;
+title.<span class="fn">style</span>.fontSize = <span class="str">"48px"</span>;         <span class="cm">// CSS: font-size → JS: fontSize</span>
+title.<span class="fn">style</span>.backgroundColor = <span class="str">"yellow"</span>; <span class="cm">// CSS: background-color → JS: backgroundColor</span></code></pre>
+
+<div class="callout info">
+  <div class="callout-title">CSS names in JavaScript</div>
+  CSS uses dashes: <code>font-size</code>, <code>background-color</code>. JavaScript uses camelCase: <code>fontSize</code>, <code>backgroundColor</code>. Just remove the dash and capitalize the next letter!
+</div>
+
+<h2>classList — adding and removing classes</h2>
+<pre><code><span class="kw">let</span> box = <span class="fn">document.querySelector</span>(<span class="str">".box"</span>);
+
+box.<span class="fn">classList</span>.<span class="fn">add</span>(<span class="str">"active"</span>);      <span class="cm">// Add a class</span>
+box.<span class="fn">classList</span>.<span class="fn">remove</span>(<span class="str">"active"</span>);   <span class="cm">// Remove a class</span>
+box.<span class="fn">classList</span>.<span class="fn">toggle</span>(<span class="str">"active"</span>);   <span class="cm">// Toggle — add if missing, remove if present</span></code></pre>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn: Dark Mode Toggle</div>
+  <ol>
+    <li>HTML: an h1, a paragraph, and a button that says "Dark Mode"</li>
+    <li>CSS: create a <code>.dark</code> class — black background, white text</li>
+    <li>JS: when button is clicked, toggle the "dark" class on the body</li>
+    <li>Change the button text too: "Dark Mode" ↔ "Light Mode"</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 17 ==================== -->
+<section class="chapter" id="lesson-17">
+<h1><span class="lesson-badge badge-js">17</span> Events — Reacting to Users</h1>
+
+<h2>addEventListener — listening for actions</h2>
+<pre><code><span class="kw">let</span> btn = <span class="fn">document.querySelector</span>(<span class="str">"#myButton"</span>);
+
+btn.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, () => {
+  <span class="fn">console.log</span>(<span class="str">"Button was clicked!"</span>);
+});</code></pre>
+
+<p>When the user clicks the button, the code inside <code>() => { ... }</code> runs. It's like telling the browser: "Hey, watch this button. When someone clicks it, do THIS."</p>
+
+<h2>Common events</h2>
+<table>
+  <tr><th>Event</th><th>When it fires</th></tr>
+  <tr><td><code>"click"</code></td><td>When something is clicked</td></tr>
+  <tr><td><code>"input"</code></td><td>Every time a character is typed in an input</td></tr>
+  <tr><td><code>"change"</code></td><td>When an input value changes (after leaving the field)</td></tr>
+  <tr><td><code>"submit"</code></td><td>When a form is submitted</td></tr>
+  <tr><td><code>"keydown"</code></td><td>When a keyboard key is pressed</td></tr>
+  <tr><td><code>"mouseover"</code></td><td>When the mouse moves over something</td></tr>
+</table>
+
+<h2>Input events — reacting to typing</h2>
+<pre><code><span class="cm">&lt;!-- HTML --&gt;</span>
+<span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"text"</span> <span class="at">id</span>=<span class="vl">"nameInput"</span> <span class="at">placeholder</span>=<span class="vl">"Type your name"</span><span class="tg">&gt;</span>
+<span class="tg">&lt;p</span> <span class="at">id</span>=<span class="vl">"greeting"</span><span class="tg">&gt;&lt;/p&gt;</span></code></pre>
+
+<pre><code><span class="kw">let</span> input = <span class="fn">document.getElementById</span>(<span class="str">"nameInput"</span>);
+<span class="kw">let</span> greeting = <span class="fn">document.getElementById</span>(<span class="str">"greeting"</span>);
+
+input.<span class="fn">addEventListener</span>(<span class="str">"input"</span>, () => {
+  greeting.<span class="fn">textContent</span> = <span class="str">`Hello, ${input.value}!`</span>;
+});</code></pre>
+<p>Now as the user types, the greeting updates instantly!</p>
+
+<h2>Form submit</h2>
+<pre><code><span class="cm">&lt;!-- HTML --&gt;</span>
+<span class="tg">&lt;form</span> <span class="at">id</span>=<span class="vl">"myForm"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"text"</span> <span class="at">id</span>=<span class="vl">"task"</span> <span class="at">placeholder</span>=<span class="vl">"Enter a task"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;button</span> <span class="at">type</span>=<span class="vl">"submit"</span><span class="tg">&gt;</span>Add<span class="tg">&lt;/button&gt;</span>
+<span class="tg">&lt;/form&gt;</span></code></pre>
+
+<pre><code><span class="kw">let</span> form = <span class="fn">document.getElementById</span>(<span class="str">"myForm"</span>);
+
+form.<span class="fn">addEventListener</span>(<span class="str">"submit"</span>, (e) => {
+  e.<span class="fn">preventDefault</span>();   <span class="cm">// Stop the page from reloading!</span>
+
+  <span class="kw">let</span> task = <span class="fn">document.getElementById</span>(<span class="str">"task"</span>);
+  <span class="fn">console.log</span>(<span class="str">"New task:"</span>, task.<span class="fn">value</span>);
+  task.<span class="fn">value</span> = <span class="str">""</span>;      <span class="cm">// Clear the input</span>
+});</code></pre>
+
+<div class="callout gotcha">
+  <div class="callout-title">preventDefault() — super important!</div>
+  When a form is submitted, the browser normally reloads the page (that's how old websites worked). <code>e.preventDefault()</code> stops that. Always use it with form submit events!
+</div>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn: Counter App</div>
+  <ol>
+    <li>HTML: a number display (h1 showing "0"), three buttons: "+", "−", "Reset"</li>
+    <li>Create a <code>count</code> variable starting at 0</li>
+    <li>"+" button adds 1 and updates the display</li>
+    <li>"−" button subtracts 1</li>
+    <li>"Reset" sets it back to 0</li>
+    <li>Bonus: if count is negative, make the number red. If positive, make it green.</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 18 ==================== -->
+<section class="chapter" id="lesson-18">
+<h1><span class="lesson-badge badge-js">18</span> Creating & Removing Elements</h1>
+
+<h2>Creating new elements with code</h2>
+<pre><code><span class="cm">// 1. Create the element</span>
+<span class="kw">let</span> newParagraph = <span class="fn">document.createElement</span>(<span class="str">"p"</span>);
+
+<span class="cm">// 2. Give it content</span>
+newParagraph.<span class="fn">textContent</span> = <span class="str">"I was created by JavaScript!"</span>;
+
+<span class="cm">// 3. Add a class (optional)</span>
+newParagraph.<span class="fn">classList</span>.<span class="fn">add</span>(<span class="str">"highlight"</span>);
+
+<span class="cm">// 4. Put it on the page</span>
+<span class="fn">document.body</span>.<span class="fn">appendChild</span>(newParagraph);</code></pre>
+
+<h2>Removing elements</h2>
+<pre><code><span class="kw">let</span> element = <span class="fn">document.getElementById</span>(<span class="str">"old-stuff"</span>);
+element.<span class="fn">remove</span>();</code></pre>
+
+<h2>Building a Todo List</h2>
+<pre><code><span class="cm">&lt;!-- HTML --&gt;</span>
+<span class="tg">&lt;form</span> <span class="at">id</span>=<span class="vl">"todoForm"</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;input</span> <span class="at">type</span>=<span class="vl">"text"</span> <span class="at">id</span>=<span class="vl">"todoInput"</span> <span class="at">placeholder</span>=<span class="vl">"Add a task..."</span><span class="tg">&gt;</span>
+  <span class="tg">&lt;button</span> <span class="at">type</span>=<span class="vl">"submit"</span><span class="tg">&gt;</span>Add<span class="tg">&lt;/button&gt;</span>
+<span class="tg">&lt;/form&gt;</span>
+<span class="tg">&lt;ul</span> <span class="at">id</span>=<span class="vl">"todoList"</span><span class="tg">&gt;&lt;/ul&gt;</span></code></pre>
+
+<pre><code><span class="kw">let</span> form = <span class="fn">document.getElementById</span>(<span class="str">"todoForm"</span>);
+<span class="kw">let</span> input = <span class="fn">document.getElementById</span>(<span class="str">"todoInput"</span>);
+<span class="kw">let</span> list = <span class="fn">document.getElementById</span>(<span class="str">"todoList"</span>);
+
+form.<span class="fn">addEventListener</span>(<span class="str">"submit"</span>, (e) => {
+  e.<span class="fn">preventDefault</span>();
+
+  <span class="kw">if</span> (input.<span class="fn">value</span> === <span class="str">""</span>) <span class="kw">return</span>;   <span class="cm">// Don't add empty tasks</span>
+
+  <span class="cm">// Create a new list item</span>
+  <span class="kw">let</span> li = <span class="fn">document.createElement</span>(<span class="str">"li"</span>);
+  li.<span class="fn">textContent</span> = input.<span class="fn">value</span>;
+
+  <span class="cm">// Create a delete button</span>
+  <span class="kw">let</span> deleteBtn = <span class="fn">document.createElement</span>(<span class="str">"button"</span>);
+  deleteBtn.<span class="fn">textContent</span> = <span class="str">"Delete"</span>;
+  deleteBtn.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, () => {
+    li.<span class="fn">remove</span>();   <span class="cm">// Remove this list item</span>
+  });
+
+  li.<span class="fn">appendChild</span>(deleteBtn);
+  list.<span class="fn">appendChild</span>(li);
+  input.<span class="fn">value</span> = <span class="str">""</span>;   <span class="cm">// Clear the input</span>
+});</code></pre>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn: Build the Todo App</div>
+  <ol>
+    <li>Type the code above and get it working</li>
+    <li>Add CSS to make it look nice</li>
+    <li>Bonus: click a task to cross it out (toggle <code>line-through</code>)</li>
+    <li>Bonus: disable the Add button when the input is empty</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 19 ==================== -->
+<section class="chapter" id="lesson-19">
+<h1><span class="lesson-badge badge-js">19</span> localStorage — Saving Data</h1>
+
+<h2>The problem</h2>
+<p>Right now, if you refresh the page, all your todos disappear! That's because JavaScript variables only live while the page is open. <code>localStorage</code> lets you save data in the browser permanently.</p>
+
+<h2>How it works</h2>
+<pre><code><span class="cm">// Save data</span>
+<span class="fn">localStorage</span>.<span class="fn">setItem</span>(<span class="str">"name"</span>, <span class="str">"Ali"</span>);
+
+<span class="cm">// Read data</span>
+<span class="kw">let</span> name = <span class="fn">localStorage</span>.<span class="fn">getItem</span>(<span class="str">"name"</span>);
+<span class="fn">console.log</span>(name);   <span class="cm">// "Ali"</span>
+
+<span class="cm">// Delete one item</span>
+<span class="fn">localStorage</span>.<span class="fn">removeItem</span>(<span class="str">"name"</span>);
+
+<span class="cm">// Delete everything</span>
+<span class="fn">localStorage</span>.<span class="fn">clear</span>();</code></pre>
+
+<div class="callout gotcha">
+  <div class="callout-title">Strings only!</div>
+  localStorage only saves <strong>strings</strong>. To save arrays or objects, convert them first:
+</div>
+
+<h2>Saving arrays and objects</h2>
+<pre><code><span class="kw">let</span> todos = [<span class="str">"Do homework"</span>, <span class="str">"Read a book"</span>, <span class="str">"Exercise"</span>];
+
+<span class="cm">// SAVE — convert array to string</span>
+<span class="fn">localStorage</span>.<span class="fn">setItem</span>(<span class="str">"todos"</span>, <span class="fn">JSON.stringify</span>(todos));
+
+<span class="cm">// LOAD — convert string back to array</span>
+<span class="kw">let</span> saved = <span class="fn">JSON.parse</span>(<span class="fn">localStorage</span>.<span class="fn">getItem</span>(<span class="str">"todos"</span>));
+<span class="fn">console.log</span>(saved);   <span class="cm">// ["Do homework", "Read a book", "Exercise"]</span></code></pre>
+
+<h2>Upgrading the Todo app</h2>
+<pre><code><span class="cm">// Load saved todos (or start with empty array)</span>
+<span class="kw">let</span> todos = <span class="fn">JSON.parse</span>(<span class="fn">localStorage</span>.<span class="fn">getItem</span>(<span class="str">"todos"</span>)) || [];
+
+<span class="kw">function</span> <span class="fn">saveTodos</span>() {
+  <span class="fn">localStorage</span>.<span class="fn">setItem</span>(<span class="str">"todos"</span>, <span class="fn">JSON.stringify</span>(todos));
+}
+
+<span class="kw">function</span> <span class="fn">renderTodos</span>() {
+  list.<span class="fn">innerHTML</span> = <span class="str">""</span>;
+
+  todos.<span class="fn">forEach</span>((todo, index) => {
+    <span class="kw">let</span> li = <span class="fn">document.createElement</span>(<span class="str">"li"</span>);
+    li.<span class="fn">textContent</span> = todo;
+
+    <span class="kw">let</span> deleteBtn = <span class="fn">document.createElement</span>(<span class="str">"button"</span>);
+    deleteBtn.<span class="fn">textContent</span> = <span class="str">"Delete"</span>;
+    deleteBtn.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, () => {
+      todos.<span class="fn">splice</span>(index, <span class="nm">1</span>);
+      <span class="fn">saveTodos</span>();
+      <span class="fn">renderTodos</span>();
+    });
+
+    li.<span class="fn">appendChild</span>(deleteBtn);
+    list.<span class="fn">appendChild</span>(li);
+  });
+}
+
+form.<span class="fn">addEventListener</span>(<span class="str">"submit"</span>, (e) => {
+  e.<span class="fn">preventDefault</span>();
+  <span class="kw">if</span> (input.<span class="fn">value</span> === <span class="str">""</span>) <span class="kw">return</span>;
+  todos.<span class="fn">push</span>(input.<span class="fn">value</span>);
+  <span class="fn">saveTodos</span>();
+  <span class="fn">renderTodos</span>();
+  input.<span class="fn">value</span> = <span class="str">""</span>;
+});
+
+<span class="fn">renderTodos</span>();   <span class="cm">// Show saved todos on page load</span></code></pre>
+
+<div class="exercise">
+  <div class="exercise-title">Your Turn!</div>
+  <ol>
+    <li>Add localStorage to your Todo app</li>
+    <li>Refresh the page — your todos should still be there!</li>
+    <li>The delete button should also remove from localStorage</li>
+  </ol>
+</div>
+</section>
+
+<!-- ==================== LESSON 20-21 ==================== -->
+<section class="chapter" id="lesson-20">
+<h1><span class="lesson-badge badge-js">20</span> Final Project — Day 1</h1>
+
+<h2>Choose your project</h2>
+<p>Pick one of these and build it from scratch! Use everything you've learned: HTML for structure, CSS for style, JavaScript for logic.</p>
+
+<div class="exercise">
+  <div class="exercise-title">Option A: Quiz Game</div>
+  <ul>
+    <li>5-10 questions stored as an array of objects</li>
+    <li>Show one question at a time with 4 answer buttons</li>
+    <li>Tell the player if they're right or wrong</li>
+    <li>Show the final score at the end</li>
+  </ul>
+</div>
+
+<pre><code><span class="cm">// Example data structure</span>
+<span class="kw">const</span> questions = [
+  {
+    question: <span class="str">"What does HTML stand for?"</span>,
+    options: [
+      <span class="str">"Hyper Text Markup Language"</span>,
+      <span class="str">"High Tech Modern Language"</span>,
+      <span class="str">"Home Tool Markup Language"</span>,
+      <span class="str">"Hyper Transfer Markup Language"</span>
+    ],
+    correct: <span class="nm">0</span>   <span class="cm">// Index of the right answer</span>
+  },
+  <span class="cm">// ... more questions</span>
+];</code></pre>
+
+<div class="exercise">
+  <div class="exercise-title">Option B: Expense Tracker</div>
+  <ul>
+    <li>Add expenses with a name and amount</li>
+    <li>Show them in a list</li>
+    <li>Calculate and show the total</li>
+    <li>Delete button on each expense</li>
+    <li>Save to localStorage</li>
+  </ul>
+</div>
+
+<div class="exercise">
+  <div class="exercise-title">Option C: Memory Card Game</div>
+  <ul>
+    <li>Grid of face-down cards (use emoji for the pictures)</li>
+    <li>Click to flip. Match pairs.</li>
+    <li>Track the number of tries</li>
+    <li>"You won!" message when all pairs are found</li>
+  </ul>
+</div>
+
+<h2>Today's plan</h2>
+<div class="structure-box">1. <span class="arrow">→</span> Choose your project (5 min)
+2. <span class="arrow">→</span> Write the HTML structure (15 min)
+3. <span class="arrow">→</span> Style it with CSS (20 min)
+4. <span class="arrow">→</span> Start JavaScript — data + basic logic (20 min)</div>
+
+<div class="callout tip">
+  <div class="callout-title">For the teacher</div>
+  Guide, don't code for them. When they're stuck, ask "What do you think should happen next?" before giving the answer. If they hit a bug, help them use console.log() to find it — that's a skill more valuable than any code.
+</div>
+</section>
+
+<section class="chapter" id="lesson-21">
+<h1><span class="lesson-badge badge-js">21</span> Final Project — Day 2 + Demo</h1>
+
+<div class="structure-box">1. <span class="arrow">→</span> Finish JavaScript logic (25 min)
+2. <span class="arrow">→</span> Fix bugs using DevTools + console.log (10 min)
+3. <span class="arrow">→</span> Polish the CSS — hover effects, transitions (10 min)
+4. <span class="arrow">→</span> Present your project! (15 min)</div>
+
+<h2>Presentation</h2>
+<p>Each student shows their project to the class. Talk about:</p>
+<ol>
+  <li>What does your project do? (one sentence)</li>
+  <li>What was the hardest part?</li>
+  <li>How did you figure it out?</li>
+  <li>Live demo — show it working!</li>
+</ol>
+
+<h2>What's next?</h2>
+<div class="exercise">
+  <div class="exercise-title">Keep learning!</div>
+  <ul>
+    <li><strong>Free courses:</strong> freeCodeCamp.org — complete web development course</li>
+    <li><strong>Games:</strong> flexboxfroggy.com (CSS Flexbox practice), cssgridgarden.com (CSS Grid)</li>
+    <li><strong>Practice:</strong> Build one small project every week — timer, weather app, calculator</li>
+    <li><strong>GitHub:</strong> Create an account and upload your code — it's your coding portfolio!</li>
+    <li><strong>YouTube:</strong> "JavaScript for Beginners" by freeCodeCamp (full free course)</li>
+  </ul>
+</div>
+
+<div class="project">
+  <div class="project-title">Congratulations!</div>
+  <p>In 7 weeks you learned HTML, CSS, and JavaScript — the three languages that power every website in the world. You can now build real web pages. This is just the beginning of your coding journey!</p>
+</div>
+</section>
+
+</main>
+
+<script>
+const nav = document.getElementById('sidebarNav');
+const chapters = document.querySelectorAll('.chapter');
+const groups = { HTML: [], CSS: [], JS: [] };
+
+chapters.forEach((ch, i) => {
+  const h1 = ch.querySelector('h1');
+  const badge = h1.querySelector('.lesson-badge');
+  const type = badge.classList.contains('badge-html') ? 'HTML' :
+               badge.classList.contains('badge-css') ? 'CSS' : 'JS';
+  const title = h1.textContent.trim().replace(/^\d+\s*/, '');
+  const words = ch.textContent.split(/\s+/).length;
+  const time = Math.max(2, Math.round(words / 180));
+  groups[type].push({ id: ch.id, title, time, num: i + 1 });
+});
+
+Object.entries(groups).forEach(([type, items]) => {
+  if (!items.length) return;
+  const group = document.createElement('div');
+  group.className = 'nav-group';
+  group.innerHTML = `<div class="nav-group-title"><span class="dot ${type.toLowerCase()}"></span>${type}</div>`;
+
+  items.forEach(item => {
+    const link = document.createElement('a');
+    link.className = 'nav-link';
+    link.href = '#' + item.id;
+    link.dataset.target = item.id;
+
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    const key = 'ccen-done-' + item.num;
+    try { cb.checked = localStorage.getItem(key) === '1'; } catch(e) {}
+    cb.addEventListener('click', (e) => {
+      e.stopPropagation();
+      try { localStorage.setItem(key, cb.checked ? '1' : '0'); } catch(e) {}
+    });
+
+    link.appendChild(cb);
+    link.appendChild(document.createTextNode(item.title));
+
+    const time = document.createElement('span');
+    time.className = 'nav-time';
+    time.textContent = item.time + 'm';
+    link.appendChild(time);
+    group.appendChild(link);
+  });
+  nav.appendChild(group);
+});
+
+const links = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+chapters.forEach(ch => observer.observe(ch));
+
+document.getElementById('search').addEventListener('input', (e) => {
+  const q = e.target.value.toLowerCase();
+  links.forEach(link => {
+    link.style.display = link.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+});
+
+const themeBtn = document.getElementById('themeToggle');
+try {
+  const saved = localStorage.getItem('ccen-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+} catch(e) {}
+themeBtn.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  try { localStorage.setItem('ccen-theme', next); } catch(e) {}
+});
+
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = h > 0 ? (window.scrollY / h * 100) : 0;
+  document.getElementById('progress').style.width = pct + '%';
+});
+
+const hamburger = document.getElementById('hamburger');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+hamburger.addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('show');
+});
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('show');
+});
+links.forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 900) {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+    }
+  });
+});
+</script>
