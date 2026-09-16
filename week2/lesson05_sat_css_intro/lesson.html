@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intro to CSS — Making Pages Pretty</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="top-nav"><a href="../../index.html">&larr; Course overview</a></div>
+<h1>Intro to CSS — Making Pages Pretty<span class="day-badge">Week 2 &middot; Saturday</span></h1>
+<section>
+<h2>Description</h2>
+<p>CSS (Cascading Style Sheets) controls how HTML looks — colors, fonts, spacing. Today we learn the 3 ways to add CSS and how to ‘select’ which HTML elements to style.</p>
+</section>
+<section>
+<h2>Key Concepts</h2>
+<ul class="concepts">
+<li>CSS is the styling language for HTML</li>
+<li>Inline CSS: a style="..." attribute on one tag</li>
+<li>Internal CSS: a &lt;style&gt; block inside &lt;head&gt;</li>
+<li>External CSS: a separate .css file linked with &lt;link&gt;</li>
+<li>Selectors: element (p), class (.name), id (#name)</li>
+<li>Common properties: color, background-color, font-family, font-size</li>
+</ul>
+</section>
+<section>
+<h2>Code Samples</h2>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> Inline CSS styles just one single tag, written right on it.</p>
+<pre><code>&lt;p style="color: blue;"&gt;Blue text&lt;/p&gt;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> Internal CSS goes inside a &lt;style&gt; tag in the &lt;head&gt; and can style the whole page.</p>
+<pre><code>&lt;style&gt;
+  p {
+    color: green;
+  }
+&lt;/style&gt;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> External CSS lives in its own .css file and is linked into the HTML page.</p>
+<pre><code>&lt;link rel="stylesheet" href="style.css"&gt;
+
+/* inside style.css */
+p { color: purple; }</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> A class selector (.name) can be reused on many tags; an id selector (#name) is for one unique tag.</p>
+<pre><code>p { color: black; }        /* every paragraph */
+.highlight { color: red; }  /* class="highlight" */
+#title { font-size: 30px; } /* id="title" */</code></pre>
+</div>
+</section>
+<section>
+<h2>Example</h2>
+<div class="example">
+<p>A page styled with an internal &lt;style&gt; block:</p>
+<pre><code>&lt;head&gt;
+  &lt;style&gt;
+    #title { color: darkgreen; font-size: 32px; }
+    .highlight { color: orange; font-family: Arial; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id="title"&gt;Welcome!&lt;/h1&gt;
+  &lt;p class="highlight"&gt;This paragraph stands out.&lt;/p&gt;
+&lt;/body&gt;</code></pre>
+</div>
+</section>
+<div class="exercises">
+<h2>Exercises <span class="tag-review">Homework — due next Wednesday</span></h2>
+<ul class="exercises">
+<li>Add an internal &lt;style&gt; block to your page from Lesson 4.</li>
+<li>Give your &lt;h1&gt; a color and a font-family.</li>
+<li>Create a class called .highlight and use it on one paragraph.</li>
+<li>Give one element an id and style it differently using that id.</li>
+<li>Review: check your form, table, list, link and image are all still on the page.</li>
+</ul>
+</div>
+<footer>Lesson 5 of 12 &middot; Intro to CSS — Making Pages Pretty</footer>
+</body>
+</html>

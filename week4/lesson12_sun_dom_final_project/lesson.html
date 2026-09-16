@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DOM Basics &amp; Final Project — Bringing It All Together</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="top-nav"><a href="../../index.html">&larr; Course overview</a></div>
+<h1>DOM Basics &amp; Final Project — Bringing It All Together<span class="day-badge">Week 4 &middot; Sunday</span></h1>
+<section>
+<h2>Description</h2>
+<p>The DOM (Document Object Model) is how JavaScript ‘sees’ and changes your HTML. Today: selecting elements, changing their text/style, reacting to clicks, and building one final project using HTML + CSS + JS together.</p>
+</section>
+<section>
+<h2>Key Concepts</h2>
+<ul class="concepts">
+<li>The DOM is JavaScript's live map of the HTML page</li>
+<li>document.getElementById() / document.querySelector() select elements</li>
+<li>.textContent changes an element's text</li>
+<li>.style changes an element's CSS from JavaScript</li>
+<li>addEventListener("click", ...) reacts to clicks</li>
+</ul>
+</section>
+<section>
+<h2>Code Samples</h2>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> getElementById finds one element by its id; querySelector finds one by a CSS-style selector.</p>
+<pre><code>const title = document.getElementById("title");
+const box = document.querySelector(".card");</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> Once selected, we can change what an element shows and how it looks.</p>
+<pre><code>title.textContent = "New Title!";
+title.style.color = "red";</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> addEventListener runs a function every time that event (like a click) happens.</p>
+<pre><code>const button = document.querySelector("button");
+button.addEventListener("click", function() {
+  console.log("Button was clicked!");
+});</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> We can combine selecting and events to make a button change the page.</p>
+<pre><code>button.addEventListener("click", function() {
+  title.style.color = "blue";
+});</code></pre>
+</div>
+</section>
+<section>
+<h2>Example</h2>
+<div class="example">
+<p>A button that changes the profile card's heading when clicked:</p>
+<pre><code>const heading = document.querySelector("h2");
+const button = document.querySelector("button");
+
+button.addEventListener("click", function() {
+  heading.textContent = "Thanks for clicking!";
+  heading.style.color = "blue";
+});</code></pre>
+</div>
+</section>
+<div class="exercises">
+<h2>Exercises</h2>
+<ul class="exercises">
+<li>Add a button to your profile card page (Lesson 9).</li>
+<li>Use document.querySelector to select the button and your &lt;h2&gt; name heading.</li>
+<li>Add a click event: when clicked, change the heading's text and color.</li>
+<li>Bonus: add a second button that changes the background-color of the whole page.</li>
+<li>Final Project: present your complete profile card page (HTML + CSS + JS) — structure, styling, and the interactive button.</li>
+</ul>
+</div>
+<footer>Lesson 12 of 12 &middot; DOM Basics &amp; Final Project — Bringing It All Together</footer>
+</body>
+</html>

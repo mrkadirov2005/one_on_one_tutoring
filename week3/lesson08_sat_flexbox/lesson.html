@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flexbox Basics — Arranging Things in a Row</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="top-nav"><a href="../../index.html">&larr; Course overview</a></div>
+<h1>Flexbox Basics — Arranging Things in a Row<span class="day-badge">Week 3 &middot; Saturday</span></h1>
+<section>
+<h2>Description</h2>
+<p>Flexbox is a simple, powerful way to line boxes up side by side (or stack them) and control the spacing between them.</p>
+</section>
+<section>
+<h2>Key Concepts</h2>
+<ul class="concepts">
+<li>display: flex turns a container into a flex layout</li>
+<li>flex-direction: row (default) or column</li>
+<li>justify-content lines items up along the main direction</li>
+<li>align-items lines items up across the other direction</li>
+<li>gap adds space between flex items</li>
+</ul>
+</section>
+<section>
+<h2>Code Samples</h2>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> display: flex makes the direct children line up automatically.</p>
+<pre><code>.container {
+  display: flex;
+}</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> flex-direction chooses whether items go in a row or a column.</p>
+<pre><code>.container {
+  flex-direction: row; /* or column */
+}</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> justify-content spaces items out: center, space-between, flex-end, etc.</p>
+<pre><code>.container {
+  justify-content: center; /* or space-between */
+}</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> align-items lines items up on the cross axis; gap adds even spacing between them.</p>
+<pre><code>.container {
+  align-items: center;
+  gap: 10px;
+}</code></pre>
+</div>
+</section>
+<section>
+<h2>Example</h2>
+<div class="example">
+<p>Three cards placed in a row and centered:</p>
+<pre><code>&lt;style&gt;
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+&lt;/style&gt;
+&lt;div class="container"&gt;
+  &lt;div class="card"&gt;Card 1&lt;/div&gt;
+  &lt;div class="card"&gt;Card 2&lt;/div&gt;
+  &lt;div class="card"&gt;Card 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</section>
+<div class="exercises">
+<h2>Exercises <span class="tag-review">Homework — due next Wednesday</span></h2>
+<ul class="exercises">
+<li>Put your list items (Lesson 2) or 3 divs inside one container div.</li>
+<li>Give the container display: flex.</li>
+<li>Try justify-content: center and then space-between — which do you prefer?</li>
+<li>Add a gap between the items.</li>
+<li>Review: keep your box-model styling (padding/border) on each item (Lesson 6).</li>
+</ul>
+</div>
+<footer>Lesson 8 of 12 &middot; Flexbox Basics — Arranging Things in a Row</footer>
+</body>
+</html>

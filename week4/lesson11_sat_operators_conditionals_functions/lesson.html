@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operators, If/Else &amp; Simple Functions</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="top-nav"><a href="../../index.html">&larr; Course overview</a></div>
+<h1>Operators, If/Else &amp; Simple Functions<span class="day-badge">Week 4 &middot; Saturday</span></h1>
+<section>
+<h2>Description</h2>
+<p>Now let's make JavaScript make decisions and reuse code. We'll learn math and comparison operators, if/else statements, and how to write our own simple functions.</p>
+</section>
+<section>
+<h2>Key Concepts</h2>
+<ul class="concepts">
+<li>Math operators: +, -, *, /</li>
+<li>Comparison operators: ===, &gt;, &lt;</li>
+<li>if / else statements make decisions</li>
+<li>Functions let us reuse a block of code</li>
+</ul>
+</section>
+<section>
+<h2>Code Samples</h2>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> Math operators work just like in math class.</p>
+<pre><code>let total = 5 + 3;
+let result = 10 - 4;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> Comparison operators check something and give back true or false.</p>
+<pre><code>console.log(5 &gt; 3);    // true
+console.log(5 === 5);  // true</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> if runs code only when the condition is true; else runs when it's false.</p>
+<pre><code>let age = 11;
+if (age &gt;= 10) {
+  console.log("You are a preteen or older!");
+} else {
+  console.log("You are younger than 10.");
+}</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> A function is a named, reusable block of code. We call it by its name.</p>
+<pre><code>function greet(name) {
+  console.log("Hello, " + name + "!");
+}
+greet("Ali");</code></pre>
+</div>
+</section>
+<section>
+<h2>Example</h2>
+<div class="example">
+<p>A function that checks if a number is even or odd:</p>
+<pre><code>function checkNumber(n) {
+  if (n % 2 === 0) {
+    console.log(n + " is even");
+  } else {
+    console.log(n + " is odd");
+  }
+}
+checkNumber(4);
+checkNumber(7);</code></pre>
+</div>
+</section>
+<div class="exercises">
+<h2>Exercises <span class="tag-review">Homework — due next Wednesday</span></h2>
+<ul class="exercises">
+<li>Write a function called greet that takes a name and logs ‘Hello, [name]!’</li>
+<li>Call your greet function with both students' names.</li>
+<li>Write an if/else that checks if a number is even or odd (hint: number % 2 === 0).</li>
+<li>Combine the two ideas into one function called isEven(number).</li>
+<li>Review: keep your console.log messages from Lesson 10 working alongside the new code.</li>
+</ul>
+</div>
+<footer>Lesson 11 of 12 &middot; Operators, If/Else &amp; Simple Functions</footer>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The CSS Box Model</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="top-nav"><a href="../../index.html">&larr; Course overview</a></div>
+<h1>The CSS Box Model<span class="day-badge">Week 2 &middot; Sunday</span></h1>
+<section>
+<h2>Description</h2>
+<p>Every HTML element is a box! Today we learn the 4 layers of every box — content, padding, border, and margin — and how to control width and height.</p>
+</section>
+<section>
+<h2>Key Concepts</h2>
+<ul class="concepts">
+<li>Every element on a page is a rectangular box</li>
+<li>Order (inside to outside): content → padding → border → margin</li>
+<li>width and height control the content size</li>
+<li>padding = space inside the border</li>
+<li>margin = space outside the border, between elements</li>
+</ul>
+</section>
+<section>
+<h2>Code Samples</h2>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> width and height set the size of the box's content area.</p>
+<pre><code>div {
+  width: 200px;
+  height: 100px;
+}</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> padding adds space inside the box; border draws a line around it; margin adds space outside it.</p>
+<pre><code>div {
+  padding: 10px;
+  border: 2px solid black;
+  margin: 20px;
+}</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> Four numbers set top, right, bottom, left — in that order, clockwise.</p>
+<pre><code>/* top right bottom left */
+div {
+  padding: 10px 20px 10px 20px;
+}</code></pre>
+</div>
+</section>
+<section>
+<h2>Example</h2>
+<div class="example">
+<p>A simple styled ‘card’ box:</p>
+<pre><code>.card {
+  width: 220px;
+  padding: 16px;
+  border: 2px solid #4a7c59;
+  margin: 20px;
+  background-color: #eef6ee;
+}</code></pre>
+</div>
+</section>
+<div class="exercises">
+<h2>Exercises</h2>
+<ul class="exercises">
+<li>Pick one &lt;div&gt; on your page and give it a width, padding, border, and margin.</li>
+<li>Change its background-color.</li>
+<li>Try changing the margin and padding numbers and see what happens.</li>
+<li>Review: make sure your CSS is still inside a &lt;style&gt; tag (Lesson 5).</li>
+<li>Review: your &lt;h1&gt; should still have a color from Lesson 5.</li>
+</ul>
+</div>
+<footer>Lesson 6 of 12 &middot; The CSS Box Model</footer>
+</body>
+</html>

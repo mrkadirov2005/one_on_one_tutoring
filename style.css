@@ -1,0 +1,121 @@
+/* Shared styles for every lesson page */
+:root {
+  --green: #2c5f2d;
+  --green-light: #eef6ee;
+  --blue: #1d4ed8;
+  --blue-light: #eaf1ff;
+  --orange: #b45309;
+  --orange-light: #fff4e5;
+  --ink: #222;
+  --paper: #fdfdfb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  font-size: 17px;
+}
+
+.top-nav {
+  font-size: 0.9em;
+  margin-bottom: 18px;
+}
+.top-nav a { color: var(--blue); text-decoration: none; }
+.top-nav a:hover { text-decoration: underline; }
+
+h1 {
+  font-size: 1.7em;
+  color: var(--green);
+  border-bottom: 4px solid var(--green);
+  padding-bottom: 10px;
+  margin-bottom: 4px;
+}
+.day-badge {
+  display: inline-block;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 0.55em;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+h2 {
+  color: var(--green);
+  margin-top: 2em;
+  font-size: 1.25em;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 4px;
+}
+
+section p { margin: 0.6em 0; }
+
+ul.concepts li, ul.exercises li { margin-bottom: 8px; }
+
+.snippet {
+  background: var(--blue-light);
+  border-left: 4px solid var(--blue);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 14px 0;
+}
+.snippet .def {
+  font-size: 0.92em;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+.snippet .def strong { color: var(--blue); }
+
+pre {
+  background: #1e2530;
+  color: #e6e6e6;
+  padding: 12px 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.9em;
+  margin: 0;
+}
+code { font-family: "SF Mono", Consolas, Menlo, monospace; }
+p code, li code { background: #eee; padding: 1px 5px; border-radius: 4px; font-size: 0.9em; }
+
+.example {
+  background: var(--green-light);
+  border-left: 4px solid var(--green);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 14px 0;
+}
+
+.exercises {
+  background: var(--orange-light);
+  border-left: 4px solid var(--orange);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin: 14px 0;
+}
+.exercises h2 { border: none; margin-top: 0; color: var(--orange); }
+.tag-review {
+  font-size: 0.7em;
+  background: #ffe6cc;
+  color: var(--orange);
+  padding: 1px 7px;
+  border-radius: 8px;
+  margin-left: 6px;
+}
+
+footer {
+  margin-top: 3em;
+  font-size: 0.85em;
+  color: #888;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+}

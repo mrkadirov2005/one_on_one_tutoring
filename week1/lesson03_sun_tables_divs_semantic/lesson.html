@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tables, Divs, Spans &amp; Semantic Tags</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="top-nav"><a href="../../index.html">&larr; Course overview</a></div>
+<h1>Tables, Divs, Spans &amp; Semantic Tags<span class="day-badge">Week 1 &middot; Sunday</span></h1>
+<section>
+<h2>Description</h2>
+<p>Websites need ways to group content and show data in rows and columns. Today: tables for data, div/span as generic containers, and semantic tags that describe what a section of the page is for.</p>
+</section>
+<section>
+<h2>Key Concepts</h2>
+<ul class="concepts">
+<li>&lt;table&gt;, &lt;tr&gt; (row), &lt;td&gt; (cell), &lt;th&gt; (header cell)</li>
+<li>&lt;div&gt; = a block container (starts on a new line)</li>
+<li>&lt;span&gt; = an inline container (stays in the text flow)</li>
+<li>Semantic tags: &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;footer&gt;</li>
+<li>Semantic tags make pages easier to read and understand</li>
+</ul>
+</section>
+<section>
+<h2>Code Samples</h2>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> A table is built from rows (tr) made of cells (td); th is a bold header cell.</p>
+<pre><code>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;th&gt;Age&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Ali&lt;/td&gt;
+    &lt;td&gt;11&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> div groups a block of content; span highlights a small piece of text inside a sentence.</p>
+<pre><code>&lt;div&gt;
+  This is a block. It starts on a new line.
+&lt;/div&gt;
+&lt;p&gt;This has a &lt;span&gt;highlighted word&lt;/span&gt; inside it.&lt;/p&gt;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> Semantic tags name what each part of the page is for, instead of using plain divs everywhere.</p>
+<pre><code>&lt;header&gt;My Website&lt;/header&gt;
+&lt;nav&gt;Home | About | Contact&lt;/nav&gt;
+&lt;main&gt;Main content goes here.&lt;/main&gt;
+&lt;footer&gt;Made by me, 2026&lt;/footer&gt;</code></pre>
+</div>
+</section>
+<section>
+<h2>Example</h2>
+<div class="example">
+<p>A simple class schedule table inside a semantic page layout:</p>
+<pre><code>&lt;header&gt;&lt;h1&gt;My Website&lt;/h1&gt;&lt;/header&gt;
+&lt;nav&gt;Home | About&lt;/nav&gt;
+&lt;main&gt;
+  &lt;table&gt;
+    &lt;tr&gt;&lt;th&gt;Day&lt;/th&gt;&lt;th&gt;Subject&lt;/th&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Monday&lt;/td&gt;&lt;td&gt;Math&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Tuesday&lt;/td&gt;&lt;td&gt;Art&lt;/td&gt;&lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/main&gt;
+&lt;footer&gt;Thanks for visiting!&lt;/footer&gt;</code></pre>
+</div>
+</section>
+<div class="exercises">
+<h2>Exercises</h2>
+<ul class="exercises">
+<li>Build a table showing 3 friends' names and favorite colors.</li>
+<li>Wrap your page content in &lt;header&gt;, &lt;main&gt;, and &lt;footer&gt; tags.</li>
+<li>Use a &lt;div&gt; to group the list you made in Lesson 2.</li>
+<li>Use a &lt;span&gt; to highlight one word inside a paragraph.</li>
+<li>Review: check that your page still has a link and an image from Lesson 2.</li>
+</ul>
+</div>
+<footer>Lesson 3 of 12 &middot; Tables, Divs, Spans &amp; Semantic Tags</footer>
+</body>
+</html>

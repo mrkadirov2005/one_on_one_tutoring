@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intro to JavaScript — Making Pages Interactive</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="top-nav"><a href="../../index.html">&larr; Course overview</a></div>
+<h1>Intro to JavaScript — Making Pages Interactive<span class="day-badge">Week 4 &middot; Wednesday</span></h1>
+<p><span class="tag-review">Homework check</span> Today we review the homework assigned in <em>Flexbox Basics — Arranging Things in a Row</em> (Saturday, Week 3).</p>
+<section>
+<h2>Description</h2>
+<p>JavaScript (JS) is the language that makes webpages DO things — react to clicks, calculate numbers, change content. Today: variables, basic data types, printing messages, and linking a JS file to HTML.</p>
+</section>
+<section>
+<h2>Key Concepts</h2>
+<ul class="concepts">
+<li>JavaScript is the behavior layer of a webpage</li>
+<li>Variables store information: let and const</li>
+<li>Data types: string (text), number, boolean (true/false)</li>
+<li>console.log() prints a message so we can check our code</li>
+<li>Linking JS to HTML with &lt;script src="..."&gt;&lt;/script&gt;</li>
+</ul>
+</section>
+<section>
+<h2>Code Samples</h2>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> let makes a variable that can change later; const makes one that can't.</p>
+<pre><code>let name = "Ali";
+const age = 11;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> Every value has a type: text (string), numbers, or true/false (boolean).</p>
+<pre><code>let message = "Hello!";  // string
+let count = 5;            // number
+let isFun = true;         // boolean</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> console.log prints a message to the browser's console so we can see what our code is doing.</p>
+<pre><code>console.log("Hello, world!");
+console.log(age);</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> This links a JavaScript file to your HTML page, usually near the end of &lt;body&gt;.</p>
+<pre><code>&lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;!-- put this near the end of &lt;body&gt; --&gt;</code></pre>
+</div>
+</section>
+<section>
+<h2>Example</h2>
+<div class="example">
+<p>A simple script.js that builds and logs a greeting:</p>
+<pre><code>let name = "Ali";
+let age = 11;
+console.log("Hi, I'm " + name + " and I'm " + age + " years old.");</code></pre>
+</div>
+</section>
+<div class="exercises">
+<h2>Exercises</h2>
+<ul class="exercises">
+<li>Create a script.js file and link it to your HTML page.</li>
+<li>Declare a variable for your name and one for your age.</li>
+<li>Use console.log to print ‘Hi, I'm [name] and I'm [age] years old.’</li>
+<li>Open the browser console (right-click → Inspect → Console) and check your message appears.</li>
+<li>Review: your HTML page should still show your profile card from Lesson 9.</li>
+</ul>
+</div>
+<footer>Lesson 10 of 12 &middot; Intro to JavaScript — Making Pages Interactive</footer>
+</body>
+</html>

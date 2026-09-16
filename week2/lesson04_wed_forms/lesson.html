@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forms &amp; Inputs — Getting Info From Users</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="top-nav"><a href="../../index.html">&larr; Course overview</a></div>
+<h1>Forms &amp; Inputs — Getting Info From Users<span class="day-badge">Week 2 &middot; Wednesday</span></h1>
+<p><span class="tag-review">Homework check</span> Today we review the homework assigned in <em>Formatting Text, Lists, Links &amp; Images</em> (Saturday, Week 1).</p>
+<section>
+<h2>Description</h2>
+<p>Forms let a website ask the user questions, like a name or an email address. Today we learn the basic pieces of a form — later, JavaScript will make them actually do something.</p>
+</section>
+<section>
+<h2>Key Concepts</h2>
+<ul class="concepts">
+<li>&lt;form&gt; wraps all the pieces of a form</li>
+<li>&lt;input type="text"&gt; for typed answers</li>
+<li>&lt;input type="number"&gt;, type="email" for special answers</li>
+<li>&lt;label&gt; describes what an input is for</li>
+<li>&lt;input type="checkbox"&gt; for yes/no choices</li>
+<li>&lt;button&gt; to submit the form</li>
+</ul>
+</section>
+<section>
+<h2>Code Samples</h2>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> label describes the input; the for and id must match so they're connected.</p>
+<pre><code>&lt;label for="name"&gt;Your Name:&lt;/label&gt;
+&lt;input type="text" id="name" name="name"&gt;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> type changes what kind of answer the input expects.</p>
+<pre><code>&lt;input type="number" placeholder="Your age"&gt;
+&lt;input type="email" placeholder="you@example.com"&gt;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> A checkbox can be checked or unchecked — great for yes/no questions.</p>
+<pre><code>&lt;input type="checkbox" id="agree"&gt;
+&lt;label for="agree"&gt;I agree&lt;/label&gt;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> A button submits the form when clicked.</p>
+<pre><code>&lt;button&gt;Submit&lt;/button&gt;</code></pre>
+</div>
+</section>
+<section>
+<h2>Example</h2>
+<div class="example">
+<p>A simple sign-up form:</p>
+<pre><code>&lt;h1&gt;Sign Up&lt;/h1&gt;
+&lt;form&gt;
+  &lt;label for="name"&gt;Name:&lt;/label&gt;
+  &lt;input type="text" id="name"&gt;&lt;br&gt;
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="email" id="email"&gt;&lt;br&gt;
+  &lt;input type="checkbox" id="fun"&gt;
+  &lt;label for="fun"&gt;I like having fun&lt;/label&gt;&lt;br&gt;
+  &lt;button&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+</div>
+</section>
+<div class="exercises">
+<h2>Exercises</h2>
+<ul class="exercises">
+<li>Build a small form asking for a name and favorite color (text inputs).</li>
+<li>Add a submit button to your form.</li>
+<li>Add one checkbox for ‘I like pizza’.</li>
+<li>Put your form inside a &lt;main&gt; tag with an &lt;h1&gt; title above it.</li>
+<li>Review: add a table under the form with 2 example rows of data (Lesson 3).</li>
+</ul>
+</div>
+<footer>Lesson 4 of 12 &middot; Forms &amp; Inputs — Getting Info From Users</footer>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is HTML? Building Your First Web Page</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="top-nav"><a href="../../index.html">&larr; Course overview</a></div>
+<h1>What is HTML? Building Your First Web Page<span class="day-badge">Week 1 &middot; Wednesday</span></h1>
+<section>
+<h2>Description</h2>
+<p>HTML (HyperText Markup Language) is the language used to build the content of every website. It uses ‘tags’ to tell the browser what each piece of text is — a title, a paragraph, and so on. Today we write our very first web page from scratch.</p>
+</section>
+<section>
+<h2>Key Concepts</h2>
+<ul class="concepts">
+<li>HTML is the structure (skeleton) of a webpage</li>
+<li>Tags come in pairs: an opening tag and a closing tag</li>
+<li>Every page starts with &lt;!DOCTYPE html&gt;</li>
+<li>&lt;html&gt;, &lt;head&gt;, and &lt;body&gt; are the three main parts</li>
+<li>Headings &lt;h1&gt;–&lt;h6&gt; and paragraphs &lt;p&gt;</li>
+<li>Comments &lt;!-- --&gt; are notes the browser ignores</li>
+</ul>
+</section>
+<section>
+<h2>Code Samples</h2>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> This line tells the browser: ‘this is a modern HTML page’.</p>
+<pre><code>&lt;!DOCTYPE html&gt;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> The &lt;html&gt; tag wraps everything on the page.</p>
+<pre><code>&lt;html&gt;
+  ...
+&lt;/html&gt;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> &lt;head&gt; holds info about the page (like the browser tab title). &lt;body&gt; holds what you actually SEE.</p>
+<pre><code>&lt;head&gt;
+  &lt;title&gt;My Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  ...
+&lt;/body&gt;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> Headings go from biggest (h1) to smallest (h6). Paragraphs hold normal text.</p>
+<pre><code>&lt;h1&gt;Biggest Title&lt;/h1&gt;
+&lt;h2&gt;Smaller Title&lt;/h2&gt;
+&lt;p&gt;This is a paragraph of text.&lt;/p&gt;</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> Comments are notes for humans — the browser skips them completely.</p>
+<pre><code>&lt;!-- This is a comment, the browser ignores it --&gt;</code></pre>
+</div>
+</section>
+<section>
+<h2>Example</h2>
+<div class="example">
+<p>A tiny but complete web page:</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;My First Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- This page is about me --&gt;
+  &lt;h1&gt;Hello, I'm Ali!&lt;/h1&gt;
+  &lt;p&gt;I am learning HTML this month.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</section>
+<div class="exercises">
+<h2>Exercises</h2>
+<ul class="exercises">
+<li>Create a new file called index.html with the basic structure (doctype, html, head with a title, body).</li>
+<li>Add one &lt;h1&gt; heading with your name.</li>
+<li>Add two &lt;p&gt; paragraphs about your favorite hobby.</li>
+<li>Add a comment above the body explaining what the page is about.</li>
+</ul>
+</div>
+<footer>Lesson 1 of 12 &middot; What is HTML? Building Your First Web Page</footer>
+</body>
+</html>

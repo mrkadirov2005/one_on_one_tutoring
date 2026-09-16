@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Styling Text &amp; Backgrounds</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="top-nav"><a href="../../index.html">&larr; Course overview</a></div>
+<h1>Styling Text &amp; Backgrounds<span class="day-badge">Week 3 &middot; Wednesday</span></h1>
+<p><span class="tag-review">Homework check</span> Today we review the homework assigned in <em>Intro to CSS — Making Pages Pretty</em> (Saturday, Week 2).</p>
+<section>
+<h2>Description</h2>
+<p>Let's make our pages look more finished: better fonts, text alignment, and background colors.</p>
+</section>
+<section>
+<h2>Key Concepts</h2>
+<ul class="concepts">
+<li>font-family sets the typeface (with backup fonts)</li>
+<li>font-size and font-weight control text size and boldness</li>
+<li>text-align: left, center, or right</li>
+<li>background-color colors the whole box behind the content</li>
+<li>background-image can add a picture behind content (used carefully)</li>
+</ul>
+</section>
+<section>
+<h2>Code Samples</h2>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> font-family can list several fonts — the browser uses the first one it has.</p>
+<pre><code>body {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+}</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> font-weight controls boldness; text-align controls horizontal position.</p>
+<pre><code>h1 {
+  font-weight: bold;
+  text-align: center;
+}</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> background-color fills the box behind the text with a color.</p>
+<pre><code>body {
+  background-color: #f0f8ff;
+}</code></pre>
+</div>
+<div class="snippet">
+<p class="def"><strong>What it does:</strong> background-image puts a picture behind the content of a box.</p>
+<pre><code>div {
+  background-image: url("bg.jpg");
+}</code></pre>
+</div>
+</section>
+<section>
+<h2>Example</h2>
+<div class="example">
+<p>A page with a centered heading and a light background:</p>
+<pre><code>&lt;style&gt;
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+  }
+  h1 {
+    text-align: center;
+    font-weight: bold;
+  }
+&lt;/style&gt;</code></pre>
+</div>
+</section>
+<div class="exercises">
+<h2>Exercises</h2>
+<ul class="exercises">
+<li>Change your whole page's font-family and font-size on the body.</li>
+<li>Center your &lt;h1&gt; using text-align.</li>
+<li>Give your page's &lt;body&gt; a light background-color.</li>
+<li>Review: your card &lt;div&gt; (Lesson 6) should still have padding/border/margin.</li>
+<li>Review: your form and table (Lessons 3–4) should still be visible on the page.</li>
+</ul>
+</div>
+<footer>Lesson 7 of 12 &middot; Styling Text &amp; Backgrounds</footer>
+</body>
+</html>
