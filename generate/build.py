@@ -38,6 +38,18 @@ def e(text):
     return html.escape(text, quote=False)
 
 
+def when_label(lesson):
+    if lesson["week"] == 0:
+        return f"Before Week 1 · {lesson['day']}"
+    return f"Week {lesson['week']} · {lesson['day']}"
+
+
+def order_label(lesson):
+    if lesson["order"] == 0:
+        return "Introduction"
+    return f"Lesson {lesson['order']} of 12"
+
+
 def render_lesson_html(lesson):
     checks = BY_ID.get(lesson["checks_hw_from"]) if lesson["checks_hw_from"] else None
 
@@ -56,7 +68,7 @@ def render_lesson_html(lesson):
 
     parts.append(
         f"<h1>{e(lesson['topic'])}"
-        f"<span class=\"day-badge\">Week {lesson['week']} &middot; {lesson['day']}</span></h1>"
+        f"<span class=\"day-badge\">{e(when_label(lesson))}</span></h1>"
     )
 
     if checks:
@@ -79,6 +91,15 @@ def render_lesson_html(lesson):
         parts.append(f"<li>{e(c)}</li>")
     parts.append("</ul>")
     parts.append("</section>")
+
+    for extra in lesson.get("extra_sections", []):
+        parts.append("<section>")
+        parts.append(f"<h2>{e(extra['title'])}</h2>")
+        parts.append('<ul class="concepts">')
+        for item in extra["items"]:
+            parts.append(f"<li>{e(item)}</li>")
+        parts.append("</ul>")
+        parts.append("</section>")
 
     # Code snippets
     parts.append("<section>")
@@ -109,7 +130,7 @@ def render_lesson_html(lesson):
     parts.append("</ul>")
     parts.append("</div>")
 
-    parts.append(f"<footer>Lesson {lesson['order']} of 12 &middot; {e(lesson['topic'])}</footer>")
+    parts.append(f"<footer>{order_label(lesson)} &middot; {e(lesson['topic'])}</footer>")
     parts.append("</body>")
     parts.append("</html>")
     return "\n".join(parts)
@@ -214,7 +235,7 @@ def build_lesson_pptx(lesson, out_path):
 
     # 1. Title slide
     s = new_slide()
-    box = slide_center_title(s, prs, lesson["topic"], f"Week {lesson['week']} · {lesson['day']} · Lesson {lesson['order']} of 12")
+    slide_center_title(s, prs, lesson["topic"], f"{when_label(lesson)} · {order_label(lesson)}")
 
     # 2. Description
     s = new_slide()
@@ -225,6 +246,11 @@ def build_lesson_pptx(lesson, out_path):
     s = new_slide()
     add_title_bar(s, prs, "Key Concepts")
     add_bullets(s, prs, lesson["key_concepts"])
+
+    for extra in lesson.get("extra_sections", []):
+        s = new_slide()
+        add_title_bar(s, prs, extra["title"])
+        add_bullets(s, prs, extra["items"], font_size=21)
 
     # 4..N Code snippets (one slide each)
     for i, snip in enumerate(lesson["snippets"], start=1):
@@ -279,6 +305,7 @@ def render_index_html():
         weeks.setdefault(l["week"], []).append(l)
 
     week_titles = {
+        0: "Introduction & Setup",
         1: "HTML Foundations",
         2: "HTML Wrap-up + CSS Intro",
         3: "CSS Deep Dive",
@@ -305,13 +332,14 @@ def render_index_html():
     parts.append("<body>")
     parts.append("<h1>HTML, CSS &amp; JS in One Month</h1>")
     parts.append(
-        "<p>12 lessons, 3 per week (Wednesday, Saturday, Sunday). Homework is assigned on "
+        "<p>An introduction class, then 12 lessons, 3 per week (Wednesday, Saturday, Sunday). Homework is assigned on "
         "Saturday and reviewed the following Wednesday. Click a lesson to open its page; "
         "each lesson folder also has a matching <code>slides.pptx</code> for class.</p>"
     )
 
     for wk in sorted(weeks):
-        parts.append(f"<h2>Week {wk} — {e(week_titles[wk])}</h2>")
+        heading = e(week_titles[wk]) if wk == 0 else f"Week {wk} — {e(week_titles[wk])}"
+        parts.append(f"<h2>{heading}</h2>")
         parts.append("<table>")
         parts.append("<tr><th>Day</th><th>Topic</th><th>Notes</th></tr>")
         for l in weeks[wk]:

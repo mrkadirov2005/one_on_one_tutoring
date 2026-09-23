@@ -7,7 +7,12 @@ Decisions confirmed with the user:
 - PPTs will be real `.pptx` files, generated with `python-pptx` (needs `pip install python-pptx` — not yet installed).
 - Layout: `week1/`…`week4/` folders, each containing one subfolder per lesson with `lesson.html` + `slides.pptx` inside.
 
-## Curriculum (12 lessons)
+## Curriculum (introduction + 12 lessons)
+
+**Introduction — Setup & Course Overview** (first class, `week0/lesson00_intro_setup/`)
+- Setup: Chrome, VS Code, the Live Server extension, a `my-website` folder, Chrome DevTools, file extensions (Windows), save/undo shortcuts.
+- Summary of what each week teaches, plus the homework rhythm (given Saturday, checked Wednesday).
+- What students can do by the end of the month: build a full page from scratch, style it with CSS and flexbox, write simple JS, and make an interactive profile card.
 
 **Week 1 — HTML Foundations**
 1. Wed — What is HTML? Page structure (`<!DOCTYPE>`, `html`, `head`, `body`), headings, paragraphs, comments.

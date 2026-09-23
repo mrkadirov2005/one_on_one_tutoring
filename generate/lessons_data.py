@@ -15,6 +15,97 @@ Each lesson is a dict with:
 
 LESSONS = [
 
+    # ---------------- INTRODUCTION : SETUP + COURSE OVERVIEW ----------------
+    {
+        "id": "lesson00",
+        "folder": "week0/lesson00_intro_setup",
+        "week": 0, "day": "First class", "order": 0,
+        "topic": "Welcome! Setup & What We Will Learn",
+        "description": (
+            "Welcome to the course! In one month you will learn how websites are made "
+            "using three languages: HTML (the structure), CSS (the style), and JavaScript "
+            "(the behavior). Today we set up our computers with the tools we need, see "
+            "what we will learn each week, and make sure everything works."
+        ),
+        "key_concepts": [
+            "A computer (Windows or macOS) with internet",
+            "Google Chrome — the browser we test our pages in",
+            "VS Code — the free code editor we write our code in",
+            "Live Server — a VS Code extension that refreshes the page automatically",
+            "A course folder called my-website to keep all our files",
+            "Chrome DevTools (right-click → Inspect) to look at and check our code",
+        ],
+        "extra_sections": [
+            {
+                "title": "Setup Checklist",
+                "items": [
+                    "Install Google Chrome: google.com/chrome",
+                    "Install VS Code: code.visualstudio.com",
+                    "In VS Code, open Extensions (the four-squares icon), search ‘Live Server’ and click Install",
+                    "Windows only: in File Explorer, turn on View → Show → File name extensions",
+                    "Create a folder called my-website on your Desktop",
+                    "In VS Code: File → Open Folder → choose my-website",
+                ],
+            },
+            {
+                "title": "What We Will Learn",
+                "items": [
+                    "Week 1 — HTML: page structure, text, lists, links, images, tables, semantic tags",
+                    "Week 2 — HTML forms, then CSS: colors, fonts, selectors, the box model",
+                    "Week 3 — CSS: text and backgrounds, flexbox, and a profile card mini project",
+                    "Week 4 — JavaScript: variables, if/else, functions, and making buttons work",
+                    "Homework is given on Saturday and checked on Wednesday",
+                ],
+            },
+            {
+                "title": "By the End of the Month You Will Be Able To",
+                "items": [
+                    "Build a complete web page from an empty file",
+                    "Use headings, paragraphs, lists, links, images, tables, and forms",
+                    "Style a page with colors, fonts, spacing, and borders",
+                    "Arrange boxes side by side using flexbox",
+                    "Write simple JavaScript: variables, if/else, and functions",
+                    "Make a button change text and colors on the page",
+                    "Present your own interactive ‘About Me’ profile card page",
+                ],
+            },
+        ],
+        "snippets": [
+            {"def": "Our project folder. For now we only need index.html — style.css and script.js come later in the month.",
+             "code": "my-website/\n  index.html    <- HTML (Week 1)\n  style.css     <- CSS (Week 2)\n  script.js     <- JavaScript (Week 4)"},
+            {"def": "VS Code shortcut: in an empty .html file, type ! and press Enter — it writes the basic page for you.",
+             "code": "!   then press Enter"},
+            {"def": "To see your page: right-click index.html in VS Code and choose ‘Open with Live Server’. Every time you save, the browser updates.",
+             "code": "Save:  Ctrl + S   (Mac: Cmd + S)\nUndo:  Ctrl + Z   (Mac: Cmd + Z)"},
+            {"def": "Open DevTools in Chrome (right-click → Inspect → Console) and type this to check JavaScript works.",
+             "code": "console.log(\"My setup works!\");"},
+        ],
+        "example": {
+            "desc": "A tiny ‘setup check’ page. If you can see this heading in Chrome, you are ready for Lesson 1:",
+            "code": (
+                "<!DOCTYPE html>\n"
+                "<html>\n"
+                "<head>\n"
+                "  <title>Setup Check</title>\n"
+                "</head>\n"
+                "<body>\n"
+                "  <h1>My setup works!</h1>\n"
+                "</body>\n"
+                "</html>"
+            ),
+        },
+        "exercises": [
+            "Install Chrome, VS Code, and the Live Server extension.",
+            "Create the my-website folder and open it in VS Code.",
+            "Create index.html, type the setup check page, and save it.",
+            "Open it with Live Server — change the heading text, save, and watch the browser update.",
+            "Open the Chrome Console and run console.log(\"My setup works!\").",
+            "Find these keys on your keyboard: < > / { } ; \" — we will use them a lot!",
+        ],
+        "homework": False,
+        "checks_hw_from": None,
+    },
+
     # ---------------- WEEK 1 : HTML FOUNDATIONS ----------------
     {
         "id": "lesson01",
